@@ -1,13 +1,16 @@
 <title>The Rose</title>
+<link rel="icon" type="image/png" href="rose-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..500;1,6..96,400&family=Jost:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
 <style>
 /* Minimal and classy, after The Linearity: lots of air, a centred logo, thin uppercase serif headings, hairlines, square corners, very few buttons.
-   One brand palette: ivory and oxblood, in both light and dark system settings. */
+   One brand palette from the design: dusty pink and gold, in both light and dark system settings. */
 :root {
-  --bg: #FAF8F4; --card: #FFFFFF; --ink: #1B1918; --muted: #6F6A64; --rose: #7A1F33; --rose-ink: #FFFFFF; --rose-soft: #F1E4E4;
-  --rule: rgba(27, 25, 24, .14); --stage: #EFECE6;
+  /* From the brand design: dusty pink with a gold rose. Text accents use a deeper gold so they stay readable on pink. */
+  --bg: #E5C1CB; --card: #F2DDE2; --ink: #2A1C20; --muted: #5E4249; --rose: #6E5019; --rose-ink: #FFFFFF; --rose-soft: #F4E4CF;
+  --gold: #B8964F;
+  --rule: rgba(42, 28, 32, .17); --stage: #EBCED5;
   --ok: #2F5F4B; --ok-soft: #E3EDE7; --warn: #8A5A00; --warn-soft: #F5EBD6;
   color-scheme: light;
   --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
@@ -304,6 +307,73 @@ form { display: grid; gap: 20px; }
 
 @media (max-width: 899px) { .site-head .brandmark { grid-column: 2; } }
 @media (max-width: 599px) { .site-foot .wrap { padding-bottom: 72px; } }
+/* ---------- connection map, garment thread, mentors, money, brand reports ---------- */
+.web { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.node { position: relative; display: grid; gap: 8px; align-content: start; justify-items: center; text-align: center; padding: 24px 16px; border: 1px solid var(--rule); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .3s, transform .35s var(--ease); }
+.node:hover { border-color: var(--ink); transform: translateY(-3px); }
+.node b { font-family: var(--display); font-weight: 400; font-size: 20px; letter-spacing: .12em; text-transform: uppercase; }
+.node span { font-size: 14.5px; color: var(--muted); line-height: 1.55; }
+.node i { font-style: normal; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--rose); margin-top: 4px; }
+.hub { grid-column: 1 / -1; grid-row: 1; display: grid; justify-items: center; align-content: center; gap: 8px; text-align: center; padding: 8px 16px 20px; }
+.hub svg { width: 44px; height: 44px; color: var(--rose); }
+.hub b { font-family: var(--display); font-weight: 400; font-size: 15px; letter-spacing: .34em; text-transform: uppercase; }
+.hub span { font-size: 14.5px; color: var(--muted); max-width: 240px; }
+@media (min-width: 900px) {
+  .web { grid-template-columns: 1fr 320px 1fr; grid-template-rows: auto auto; gap: 24px 0; align-items: center; }
+  .web .hub { grid-column: 2; grid-row: 1 / span 2; width: 220px; aspect-ratio: 1; justify-self: center; border: 1px solid var(--rule); border-radius: 50%; padding: 24px; }
+  .web .n1 { grid-column: 1; grid-row: 1; } .web .n2 { grid-column: 1; grid-row: 2; }
+  .web .n3 { grid-column: 3; grid-row: 1; } .web .n4 { grid-column: 3; grid-row: 2; }
+  .web .n1::after, .web .n2::after, .web .n3::before, .web .n4::before { content: ""; position: absolute; top: 50%; width: 50px; height: 1px; background: var(--rule); }
+  .web .n1::after, .web .n2::after { right: -51px; }
+  .web .n3::before, .web .n4::before { left: -51px; }
+}
+.thread { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.step { position: relative; display: grid; gap: 8px; align-content: start; padding: 24px 4px; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; }
+.step b { font-family: var(--display); font-weight: 400; font-size: 21px; line-height: 1.25; }
+.step span { color: var(--muted); font-size: 15px; }
+.step i { font-style: normal; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--rose); }
+.step b { background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat; transition: background-size .5s var(--ease); justify-self: start; }
+.step:hover b { background-size: 100% 1px; }
+@media (min-width: 900px) {
+  .thread { grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--rule); }
+  .step { padding: 32px 28px; border-bottom: 0; }
+  .step + .step { border-left: 1px solid var(--rule); }
+  .step + .step::before { content: "→"; position: absolute; left: -10px; top: 30px; width: 20px; text-align: center; background: var(--bg); color: var(--muted); }
+}
+.small-shop .product b { font-size: 13.5px; }
+.grid2 { display: grid; gap: 20px; }
+@media (min-width: 760px) { .grid2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.payslip { background: var(--card); border: 1px solid var(--rule); align-self: start; }
+.payslip header { display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 8px 16px; padding: 22px 24px; border-bottom: 1px solid var(--ink); }
+.pay-meta { text-align: right; }
+@media (max-width: 599px) { .pay-meta { text-align: left; } }
+.payslip header b { font-family: var(--display); font-weight: 400; font-size: 26px; }
+.pl { border-bottom: 1px solid var(--rule); }
+.pl summary { display: flex; align-items: center; gap: 12px; padding: 16px 24px; min-height: 60px; cursor: pointer; list-style: none; transition: background .25s; }
+.pl summary::-webkit-details-marker { display: none; }
+.pl summary:hover { background: var(--bg); }
+.pl summary b { font-weight: 500; flex: 1; }
+.pl summary .amt { font-variant-numeric: tabular-nums; font-size: 17px; }
+.pl.out .amt { color: var(--muted); }
+.pl summary::after { content: "+"; width: 18px; text-align: center; color: var(--muted); font-size: 20px; transition: transform .35s var(--ease); }
+.pl[open] summary::after { transform: rotate(45deg); }
+.pl p { padding: 0 24px 18px; color: var(--muted); font-size: 15.5px; animation: fadeUp .45s var(--ease); }
+.net { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 22px 24px; background: var(--rose-soft); }
+.net b { font-family: var(--display); font-weight: 400; font-size: 32px; font-variant-numeric: lining-nums tabular-nums; }
+.bar { height: 8px; background: var(--stage); position: relative; overflow: hidden; }
+.bar i { position: absolute; inset: 0 auto 0 0; background: var(--rose); animation: grow 1.2s var(--ease) both; transform-origin: left; }
+@keyframes grow { from { transform: scaleX(0); } }
+.lesson-link { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; min-height: 60px; }
+.lesson-link b { font-weight: 500; }
+.lesson-link:hover b { color: var(--rose); }
+.became { display: grid; border-top: 1px solid var(--rule); }
+.became-row { display: grid; grid-template-columns: 84px 1fr auto; gap: 18px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.became-row .pic { aspect-ratio: 3/4; }
+.became-row > div { display: grid; gap: 4px; }
+.became-row b { font-family: var(--display); font-weight: 400; font-size: 19px; }
+@media (max-width: 599px) { .became-row { grid-template-columns: 72px 1fr; } .became-row > .link { grid-column: 2; } }
+
 
 /* ---------- motion: buttons ---------- */
 :root { --ease: cubic-bezier(.22, .8, .24, 1); }
@@ -375,10 +445,26 @@ form { display: grid; gap: 20px; }
   .w > span, .fade-up, .rv > * { transform: none !important; opacity: 1 !important; }
   .sheet .done-ico svg path { stroke-dashoffset: 0; }
 }
+
+/* ---------- brand design: pink and gold ---------- */
+.brandmark img { height: 42px; width: auto; display: block; }
+.hub img { height: 92px; width: auto; }
+.hero-rose { height: clamp(130px, 20vw, 210px); width: auto; animation: bloom 1.6s var(--ease) both; }
+@keyframes bloom { from { clip-path: inset(100% 0 0 0); opacity: .3; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
+.drop { background: var(--gold); }
+.btn.rose::before { background: var(--gold); }
+.btn.rose:hover { border-color: var(--gold); color: var(--ink); }
+.web .hub { border-color: var(--gold); }
+.web .n1::after, .web .n2::after, .web .n3::before, .web .n4::before { background: var(--gold); }
+.sec-head .label, .hero .label { color: var(--rose); }
+.bar i { background: var(--gold); }
+.net { background: var(--rose-soft); }
+.site-head { background: color-mix(in srgb, var(--bg) 92%, transparent); }
+@media (max-width: 899px) { .brandmark img { height: 28px; } .site-head .wrap { padding-block: 6px; } }
+@media (prefers-reduced-motion: reduce) { .hero-rose { clip-path: none; opacity: 1; } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-rose" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8c-3.4 0-6.2 2.4-6.2 5.6 0 2.7 2 4.6 4.4 5.1.6.1 1.2.2 1.8.2s1.2-.1 1.8-.2c2.4-.5 4.4-2.4 4.4-5.1 0-3.2-2.8-5.6-6.2-5.6z"/><path d="M12 5.4c-1.9 0-3.4 1.2-3.4 2.9 0 1.6 1.4 2.5 3.1 2.5 1.5 0 2.4-.8 2.4-2 0-1-.8-1.8-1.9-1.8-.9 0-1.5.5-1.5 1.2"/><path d="M6.4 10.4c1.2 1.4 3 2.1 5.6 2.1s4.4-.7 5.6-2.1"/><path d="M12 14v8"/><path d="M12 19c2.6-.1 4.2-1.4 4.7-3.6-2.6 0-4.4 1.3-4.7 3.6z"/></g></symbol>
   <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></g></symbol>
   <symbol id="i-scan" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M8 8h3v3H8zM13 13h3v3h-3zM13 8h3M8 16h3"/></g></symbol>
   <symbol id="i-gift" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 10h16v10H4zM3 7h18v3H3zM12 7v13"/><path d="M12 7c-1.5-3-5-3-5-1s3 1 5 1zM12 7c1.5-3 5-3 5-1s-3 1-5 1z"/></g></symbol>
@@ -407,7 +493,7 @@ form { display: grid; gap: 20px; }
    First names only. No surnames, prison names or offences.
    ============================================================ */
 const BASE_URL = "https://claude.ai/artifact/JN9YpmEpMPAAuW3hhttr5C";
-const TRAINER = "Nadia, workshop trainer";
+const TRAINER = "Nadia, tailor";
 const SKILLS = ["Machine sewing", "Hand sewing", "Pattern cutting", "Overlocking", "Embroidery", "Finishing and pressing", "Quality checks", "Money basics"];
 
 const SEED_MAKERS = {
@@ -442,11 +528,12 @@ const SEED_MAKERS = {
 };
 
 const BRANDS = ["Brightwear", "Novo Street"];
+const brandId = b => b.toLowerCase().replace(/[^a-z]+/g, "-");
 
 const GARMENTS = {
-  "tr-001": { name: "Rose Tee, white", maker: "sam", photo: "tee-white.png", price: 85, date: "3 Sep 2026", kg: 0.46,
+  "tr-001": { name: "Rose Tee, white", maker: "sam", photo: "tee-white.jpg", price: 35, date: "3 Sep 2026", kg: 0.46,
     materials: "Cotton jersey 100%", source: "Brightwear", lot: "BW-0412", note: "Unsold white jersey, end of a production run", skills: ["Machine sewing", "Overlocking"] },
-  "tr-002": { name: "Rose Tee, black", maker: "leah", photo: "tee-black.png", price: 85, date: "9 Sep 2026", kg: 0.52,
+  "tr-002": { name: "Rose Tee, black", maker: "leah", photo: "tee-black.jpg", price: 35, date: "9 Sep 2026", kg: 0.52,
     materials: "Cotton jersey 97%, elastane 3%", source: "Novo Street", lot: "NS-0108", note: "Black jersey offcuts from the cutting room", skills: ["Embroidery", "Finishing and pressing"] },
   "tr-003": { name: "Fleece-Collar Denim Jacket", maker: "sam", photo: "denim-jacket.jpg", price: 240, date: "22 Sep 2026", kg: 1.8,
     materials: "Cotton denim 100%, polyester fleece collar and cuffs", source: "Brightwear", lot: "BW-0431", note: "Denim and fleece lining from cancelled orders", skills: ["Pattern cutting", "Machine sewing"] },
@@ -459,7 +546,7 @@ const GARMENTS = {
 const MENTORS = [
   { id: "priya", name: "Priya", role: "Head cutter at a tailoring house", skills: ["Pattern cutting", "Hand sewing"], slot: "Thursday 14:00", color: "#7A4E9E" },
   { id: "tom", name: "Tom", role: "Production lead at a denim brand", skills: ["Machine sewing", "Quality checks"], slot: "Monday 10:00", color: "#2F6A8F" },
-  { id: "grace", name: "Grace", role: "Volunteer money coach", skills: ["Money basics"], slot: "Wednesday 16:00", color: "#8F6A2F" },
+  { id: "grace", name: "Grace", role: "Savings and pensions adviser", skills: ["Money basics"], slot: "Wednesday 16:00", color: "#8F6A2F" },
   { id: "ade", name: "Ade", role: "Tutor at a London fashion school", skills: ["Pattern cutting", "Embroidery"], slot: "Friday 11:00", color: "#2F8F6A" }
 ];
 
@@ -488,6 +575,20 @@ const SUPPORT = [
   { name: "Nacro", what: "Help with housing, work and benefits after leaving prison.", contact: "nacro.org.uk", url: "https://www.nacro.org.uk" }
 ];
 
+/* Money section: a sample payslip explained line by line, and one savings goal per maker */
+const PAYSLIP = { employer: "The Rose workshops", period: "October 2026", paid: "31 Oct 2026", taxCode: "1257L",
+  lines: [
+    { label: "Gross pay", amount: 1080, what: "80 hours at £13.50 an hour. This is what you earned before anything is taken off." },
+    { label: "Income tax", amount: -6.5, what: "Your tax code 1257L means the first £1,047.50 you earn each month is tax-free. You pay 20% on the rest: 20% of £32.50 is £6.50." },
+    { label: "National Insurance", amount: -2.56, what: "This pays towards your State Pension and some benefits. It is 8% of what you earn above £1,048 a month." },
+    { label: "Workplace pension", amount: -28, what: "5% of your pay above £520 goes into your own pension pot. Your employer adds 3% on top, so it is money kept for you, not lost." }
+  ] };
+const SAVINGS = {
+  sam: { goal: "Deposit for a room", target: 600, saved: 180 },
+  leah: { goal: "Driving lessons", target: 400, saved: 260 },
+  marcus: { goal: "My own sewing machine", target: 250, saved: 40 }
+};
+
 const BASE_IMPACT = { kg: 1240, trained: 38, hours: 412 };
 const SEED_DONATIONS = [
   { brand: "Brightwear", type: "Denim", kg: 120, pickup: "Hackney workshop", date: "2 Oct 2026" },
@@ -497,11 +598,12 @@ const SEED_DONATIONS = [
 /* ============================================================
    STATE (kept in this browser so the demo survives a refresh)
    ============================================================ */
-const KEY = "the-rose-demo-v1";
+const KEY = "the-rose-demo-v2";
 const clone = o => JSON.parse(JSON.stringify(o));
-function fresh() { return { makers: clone(SEED_MAKERS), donations: clone(SEED_DONATIONS), booked: {}, contacted: {}, reserved: {}, lessons: {}, newMakers: 0, me: "sam", flash: null }; }
+function fresh() { return { makers: clone(SEED_MAKERS), donations: clone(SEED_DONATIONS), booked: {}, contacted: {}, reserved: {}, lessons: {}, savings: clone(SAVINGS), newMakers: 0, me: "sam", flash: null }; }
 let S;
 try { S = JSON.parse(localStorage.getItem(KEY)) || fresh(); } catch (e) { S = fresh(); }
+if (!S.savings) S.savings = clone(SAVINGS);
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -529,7 +631,7 @@ function crumbs(...items) {
   return `<nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a>${items.map(([label, href]) => `<span aria-hidden="true">/</span>${href ? `<a href="#${href}">${esc(label)}</a>` : `<span>${esc(label)}</span>`}`).join("")}</nav>`;
 }
 function picHTML(g, alt = "") {
-  return g.photo ? `<img src="${g.photo}" alt="${esc(alt)}">` : `<span class="ph">${icon("rose")}${esc(g.name)}<small>Photo coming soon</small></span>`;
+  return g.photo ? `<img src="${g.photo}" alt="${esc(alt)}">` : `<span class="ph"><img src="rose-logo.png" alt="" style="position:static;width:auto;height:44px">${esc(g.name)}<small>Photo coming soon</small></span>`;
 }
 function productCard(id, g) {
   return `<button class="product" data-go="garment-${id}"><div class="pic">${picHTML(g)}</div><b>${esc(g.name)}</b><span class="maker">Made by ${esc(S.makers[g.maker].name)}</span><span class="row">£${g.price} · ${fmt(g.kg)} kg saved</span></button>`;
@@ -537,63 +639,142 @@ function productCard(id, g) {
 
 function viewHome() {
   const k = impact();
-  const pic = id => `<a href="#garment-${id}" aria-label="${esc(GARMENTS[id].name)}"><div class="pic">${picHTML(GARMENTS[id], GARMENTS[id].name)}</div></a>`;
-  const zig = (id, n, title, text) => `<div class="zig-row rv">
-      <div class="pic">${picHTML(GARMENTS[id], GARMENTS[id].name)}</div>
-      <div class="zig-text"><p class="label">${n}</p><h2 class="h2">${title}</h2><p>${text}</p></div>
-    </div>`;
+  const g = GARMENTS["tr-003"], m = S.makers[g.maker], mentor = MENTORS[0];
   return `<main>
     <section class="hero">
-      <p class="label">London workshops</p>
-      <h1 class="h1">From fashion waste <em>to a fresh start</em></h1>
-      <p class="lead">Clothes cut and sewn by hand by people leaving prison, from fabric that fast fashion threw away.</p>
+      <img class="hero-rose" src="rose-logo.png" alt="The Rose logo: a gold rose">
+      <p class="label">A platform, not a label</p>
+      <h1 class="h1">One garment, <em>four people connected</em></h1>
+      <p class="lead">The Rose connects people leaving prison in London with mentors, with the fabric brands throw away, and with buyers who scan a QR code to meet the maker.</p>
       <span class="drop" aria-hidden="true"></span>
     </section>
 
-    <section class="strip">${pic("tr-003")}${pic("tr-001")}${pic("tr-004")}</section>
+    <section class="web" aria-label="Who The Rose connects">
+      <a class="node n1" href="#maker-${S.me}"><b>Makers</b><span>People leaving prison or on a rehabilitation programme, learning a trade with a tailor.</span><i>Maker passports</i></a>
+      <a class="node n2" href="#mentors"><b>Mentors</b><span>Tailors, fashion schools and money advisers who give time, internships and advice.</span><i>Book a mentor</i></a>
+      <div class="hub"><img src="rose-logo.png" alt=""><b>The Rose</b><span>The app links them all through every garment.</span></div>
+      <a class="node n3" href="#donate"><b>Brands</b><span>Fast-fashion brands that donate waste and see exactly what it became.</span><i>Brand reports</i></a>
+      <a class="node n4" href="#garments"><b>Buyers</b><span>People who buy the clothes and scan the tag to meet the person who made them.</span><i>Garment passports</i></a>
+    </section>
 
     <nav class="entries rv" aria-label="Start here">
-      <button class="entry" data-go="maker-${S.me}"><b>I'm a maker</b><span>Your passport, matches and lessons</span><i>Open</i></button>
+      <button class="entry" data-go="maker-${S.me}"><b>I'm a maker</b><span>Your passport, mentors and money</span><i>Open</i></button>
       <button class="entry" data-act="scan"><b>Scan a garment</b><span>See who made it and what it saved</span><i>Scan</i></button>
       <button class="entry" data-go="donate"><b>Donate fabric</b><span>For brands with textile waste</span><i>Donate</i></button>
     </nav>
 
-    <section class="zig">
-      ${zig("tr-002", "I · The fabric", "Waste, rescued", "Fast-fashion brands send us offcuts and unsold stock. Every kilo is weighed, and every brand can see what it became.")}
-      ${zig("tr-004", "II · The hands", "Made by hand", "People leaving prison learn the trade from our tailors. Each skill a trainer checks becomes a verified badge on their Maker Passport.")}
-      ${zig("tr-005", "III · The passport", "A story in every seam", "A QR code sewn inside opens the Garment Passport: materials, waste saved, and the maker's story, only if they choose to share it.")}
-    </section>
-
     <section class="section rv">
-      <div class="sec-head"><p class="label">The collection</p><h2 class="h2">Five pieces, five passports</h2></div>
-      <div class="shop five">${Object.entries(GARMENTS).map(([id, g]) => productCard(id, g)).join("")}</div>
+      <div class="sec-head"><p class="label">Follow one garment</p><h2 class="h2">How a jacket connects them</h2></div>
+      <div class="thread">
+        <a class="step" href="#brand-${brandId(g.source)}"><p class="label">I · The brand</p><b>${esc(g.source)} gives its waste</b><span>${esc(g.note)}, lot ${g.lot}. ${esc(g.source)} can see what it became.</span><i>Brand report</i></a>
+        <a class="step" href="#maker-${g.maker}"><p class="label">II · The maker</p><b>${esc(m.name)} cuts and sews it</b><span>In the ${esc(m.workshop)}. A tailor checks the work and verifies ${esc(m.name)}'s new skills.</span><i>Maker passport</i></a>
+        <a class="step" href="#mentors"><p class="label">III · The mentor</p><b>${esc(mentor.name)} guides ${esc(m.name)}</b><span>${esc(mentor.role)}, mentoring ${esc(m.name)} on pattern cutting.</span><i>Mentors</i></a>
+        <a class="step" href="#garment-tr-003"><p class="label">IV · The buyer</p><b>A buyer scans the tag</b><span>The QR opens the passport: fabric, ${fmt(g.kg)} kg of waste saved and who made it.</span><i>Garment passport</i></a>
+      </div>
     </section>
 
     <section class="ticker rv">
-      <div><b>${fmt(k.kg)}</b><span>Kg of fabric reused</span></div>
       <div><b>${fmt(k.trained)}</b><span>People trained</span></div>
       <div><b>${fmt(k.hours)}</b><span>Hours of mentoring</span></div>
-      <div><b>${Object.keys(GARMENTS).length}</b><span>Garment passports</span></div>
+      <div><b>${fmt(k.kg)}</b><span>Kg of fabric reused</span></div>
+      <div><b>${Object.keys(GARMENTS).length}</b><span>Garments with a maker</span></div>
     </section>
 
     <section class="section rv">
-      <div class="sec-head"><p class="label">One platform</p><h2 class="h2">Who The Rose connects</h2></div>
-      <div class="circles">
-        <div><b>Makers</b><span>People leaving prison or on a rehabilitation programme, with permission to work.</span></div>
-        <div><b>Mentors</b><span>People from fashion brands who give time and advice.</span></div>
-        <div><b>Brands</b><span>Fast-fashion brands that donate waste and want to see where it goes.</span></div>
-        <div><b>Schools</b><span>Fashion schools that offer internships, like pattern making.</span></div>
-        <div><b>Customers</b><span>People who buy high-end clothes made from that waste.</span></div>
-      </div>
+      <div class="sec-head"><p class="label">Made through The Rose</p><h2 class="h2">Every piece has a maker</h2><button class="link" data-go="garments">See all garment passports</button></div>
+      <div class="shop five small-shop">${Object.entries(GARMENTS).map(([id, g]) => productCard(id, g)).join("")}</div>
     </section>
+  </main>`;
+}
+
+function viewMentors() {
+  const me = S.makers[S.me];
+  return `<main>
+    ${crumbs(["Mentors"])}
+    <div class="page-head"><p class="label">Mentors</p><h1 class="h1">People who open doors</h1><p class="lead">Tailors, fashion schools and money advisers give their time to makers at The Rose. Book a first session with anyone on this list.</p></div>
+    <div class="grid2">${MENTORS.map(x => {
+      const sh = shared(x.skills, me.skills);
+      return `<div class="card item">
+        <div class="who"><span class="avatar sm" style="background:${x.color}">${x.name[0]}</span><div><b style="font-size:18px">${x.name}</b><div class="small">${x.role}</div></div></div>
+        <div class="chips">${x.skills.map(s => `<span class="chip${sh.includes(s) ? " match" : ""}">${esc(s)}</span>`).join("")}</div>
+        <p class="small">${sh.length ? `Shares ${sh.length > 1 ? "skills" : "a skill"} with ${esc(me.name)}.` : `Can help ${esc(me.name)} learn something new.`}</p>
+        ${S.booked[x.id] ? `<button class="btn ok" disabled>${icon("check")} Booked · ${x.slot}</button>` : `<button class="btn rose" data-act="book" data-id="${x.id}">Book · ${x.slot}</button>`}
+      </div>`;
+    }).join("")}</div>
+  </main>`;
+}
+
+function viewMoney() {
+  const m = S.makers[S.me];
+  if (!S.savings[S.me]) S.savings[S.me] = { goal: "My first savings goal", target: 200, saved: 0 };
+  const sv = S.savings[S.me];
+  const net = PAYSLIP.lines.reduce((a, l) => a + l.amount, 0);
+  const pct = Math.min(100, Math.round(sv.saved / sv.target * 100));
+  const left = Math.max(0, sv.target - sv.saved);
+  const money = n => `£${Math.abs(n).toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  return `<main>
+    ${crumbs([m.name, `maker-${S.me}`], ["Money"])}
+    <div class="page-head"><p class="label">Money</p><h1 class="h1">Your pay, explained</h1><p class="lead">What every line on your payslip means, and a goal to save towards. Tap a line to see what it is.</p></div>
+    <div class="split">
+      <section class="payslip" aria-label="Sample payslip">
+        <header><div><p class="label">Payslip · ${PAYSLIP.period}</p><b>${esc(m.name)}</b></div><div class="small pay-meta">${PAYSLIP.employer}<br>Paid ${PAYSLIP.paid} · Tax code ${PAYSLIP.taxCode}</div></header>
+        ${PAYSLIP.lines.map((l, i) => `<details class="pl${l.amount < 0 ? " out" : ""}"${i === 0 ? " open" : ""}><summary><b>${l.label}</b><span class="amt">${l.amount < 0 ? "−" : ""}${money(l.amount)}</span></summary><p>${l.what}</p></details>`).join("")}
+        <div class="net"><div><p class="label">Net pay</p><span class="small">What lands in your bank account</span></div><b>${money(net)}</b></div>
+      </section>
+
+      <div class="col">
+        <section class="card">
+          <p class="label">Savings goal</p>
+          <h2 class="h2">${esc(sv.goal)}</h2>
+          <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="${sv.target}" aria-valuenow="${sv.saved}" aria-label="Saved so far"><i style="width:${pct}%"></i></div>
+          <div class="item-head"><span><b style="font-size:20px">£${fmt(sv.saved)}</b> <span class="small">saved of £${fmt(sv.target)}</span></span><span class="status ${pct >= 100 ? "ver" : "pend"}">${pct}%</span></div>
+          <p class="small">${left ? `£${fmt(left)} to go. Putting aside £25 a week gets you there in about ${Math.ceil(left / 25)} weeks.` : "Goal reached. Well done."}</p>
+          ${left ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><button class="btn line sm" data-act="save-add" data-amt="10">Add £10</button><button class="btn rose sm" data-act="save-add" data-amt="25">Add £25</button></div>` : ""}
+        </section>
+        <section class="card">
+          <p class="label">Learn more</p>
+          ${LESSONS.map(l => `<a class="lesson-link" href="#lesson-${l.id}"><span><b>${l.title}</b><br><span class="small">${l.mins} min · Badge: ${l.badge}</span></span>${S.lessons[l.id] ? `<span class="status ver">Done</span>` : `<span class="status pend">Start</span>`}</a>`).join("")}
+          <button class="link" data-go="mentors">Talk to a money mentor</button>
+        </section>
+      </div>
+    </div>
+  </main>`;
+}
+
+function viewBrand(id) {
+  const name = BRANDS.find(b => brandId(b) === id); if (!name) return viewDonate();
+  const gs = Object.entries(GARMENTS).filter(([, g]) => g.source === name);
+  const dons = S.donations.filter(d => d.brand === name);
+  const kgIn = dons.reduce((a, d) => a + d.kg, 0);
+  const makers = [...new Set(gs.map(([, g]) => g.maker))];
+  return `<main>
+    ${crumbs(["For brands", "donate"], [name])}
+    <div class="page-head"><p class="label">Brand report</p><h1 class="h1">Where ${esc(name)}'s fabric went</h1><p class="lead">Every kilo you send is tracked. Here is what it became, and the people who made it.</p></div>
+    <div class="kpis grid3">
+      <div class="kpi"><b>${fmt(kgIn)}<small>kg</small></b><span>Fabric donated</span></div>
+      <div class="kpi"><b>${gs.length}</b><span>Garments made</span></div>
+      <div class="kpi"><b>${makers.length}</b><span>Makers trained on it</span></div>
+    </div>
+    <section class="section">
+      <div class="sec-head"><h2 class="h2">What your fabric became</h2></div>
+      <div class="became">${gs.map(([gid, g]) => { const mk = S.makers[g.maker]; return `<div class="became-row">
+        <a class="pic" href="#garment-${gid}" aria-label="${esc(g.name)}">${picHTML(g, g.name)}</a>
+        <div><b>${esc(g.name)}</b><span class="small">${esc(g.note)} · lot ${g.lot}</span><span class="small">Made by <a href="#maker-${g.maker}">${esc(mk.name)}</a> · ${fmt(g.kg)} kg of waste saved</span></div>
+        <a class="link" href="#garment-${gid}">Passport</a>
+      </div>`; }).join("") || `<p class="small">Your fabric is waiting to be cut.</p>`}</div>
+    </section>
+    <div class="split">
+      <div class="card"><p class="label">Your donations</p><div class="rows">${dons.slice().reverse().map(d => `<div><span><b>${esc(d.type)}</b><br><span class="small">${esc(d.date)} · ${esc(d.pickup)}</span></span><span class="num">${fmt(d.kg)} kg</span></div>`).join("")}</div></div>
+      <div class="card"><p class="label">Send more</p><p class="small">Offcuts, unsold stock or cancelled orders. We collect it and you see every garment it becomes.</p><button class="btn rose" data-go="donate">Donate fabric</button></div>
+    </div>
   </main>`;
 }
 
 function viewGarments() {
   return `<main>
-    ${crumbs(["Collection"])}
+    ${crumbs(["Garments"])}
     <div class="sec-head">
-      <div class="page-head"><h1 class="h1">The collection</h1><p class="lead">Every piece is cut and sewn by hand in our London workshops, from fabric that fast-fashion brands threw away. Each one has its own Garment Passport.</p></div>
+      <div class="page-head"><h1 class="h1">Garment passports</h1><p class="lead">Every piece is linked to the maker who sewed it and the brand whose waste it came from. Scan the tag, or open a passport below.</p></div>
       <button class="link" data-act="scan">Scan a tag</button>
     </div>
     <div class="shop">${Object.entries(GARMENTS).map(([id, g]) => productCard(id, g)).join("")}</div>
@@ -662,7 +843,7 @@ function viewMaker(id) {
           <p>${esc(m.about)}</p>
           ${isMe ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
             <button class="btn rose sm" data-go="matches">Matches</button>
-            <button class="btn line sm" data-go="lessons">Lessons</button>
+            <button class="btn line sm" data-go="money">Money</button>
           </div>` : ""}
         </div>
         <div class="card">
@@ -764,7 +945,7 @@ function viewGarment(id) {
   const m = S.makers[g.maker];
   const url = garmentURL(id);
   return `<main>
-    ${crumbs(["Collection", "garments"], [g.name])}
+    ${crumbs(["Garments", "garments"], [g.name])}
     <div class="split wide">
       <div class="pic sticky" style="aspect-ratio:3/4;border-radius:16px;overflow:hidden">${picHTML(g, g.name)}</div>
       <div class="col">
@@ -779,7 +960,7 @@ function viewGarment(id) {
           </div>
           <div class="facts" style="border-top:0">
             <div><span>Materials</span><b>${esc(g.materials)}</b></div>
-            <div><span>Fabric from</span><b>${esc(g.source)}</b></div>
+            <div><span>Fabric from</span><b>${BRANDS.includes(g.source) ? `<a href="#brand-${brandId(g.source)}">${esc(g.source)}</a>` : esc(g.source)}</b></div>
             <div style="grid-column:1/-1;padding-right:0;border-left:0"><span>Where it came from</span><b>${esc(g.note)} · lot ${g.lot}</b></div>
           </div>
         </div>
@@ -815,6 +996,7 @@ function viewDonate() {
             <div><span><b>4. You see the impact</b><br><span class="small">Your kg show up on the impact dashboard straight away.</span></span></div>
           </div>
         </div>
+        <div class="card"><p class="label">Already donating? See where it went</p>${BRANDS.map(b => `<a class="lesson-link" href="#brand-${brandId(b)}"><span><b>${esc(b)}</b><br><span class="small">Brand report: garments made and who made them</span></span><span class="status ver">Open</span></a>`).join("")}</div>
       </div>
       <form id="donate-form" class="card" novalidate>
         <h2 class="h2">Your donation</h2>
@@ -849,7 +1031,7 @@ function viewDashboard() {
       </div>
       <div class="card">
         <p class="label">Where brand fabric went</p>
-        <div class="rows">${Object.entries(byBrand).map(([b, kg]) => { const n = Object.values(GARMENTS).filter(g => g.source === b).length; return `<div><span><b>${esc(b)}</b><br><span class="small">${n ? `${n} garment${n > 1 ? "s" : ""} made so far` : "Waiting to be cut"}</span></span><span class="num">${fmt(kg)} kg</span></div>`; }).join("")}</div>
+        <div class="rows">${Object.entries(byBrand).map(([b, kg]) => { const n = Object.values(GARMENTS).filter(g => g.source === b).length; return `<div><span><b>${BRANDS.includes(b) ? `<a href="#brand-${brandId(b)}">${esc(b)}</a>` : esc(b)}</b><br><span class="small">${n ? `${n} garment${n > 1 ? "s" : ""} made so far` : "Waiting to be cut"}</span></span><span class="num">${fmt(kg)} kg</span></div>`; }).join("")}</div>
       </div>
     </div>
     <button class="link" data-act="reset" style="justify-self:start;font-size:14px">Reset the demo</button>
@@ -859,26 +1041,26 @@ function viewDashboard() {
 /* ============================================================
    ROUTER
    ============================================================ */
-const NAV_FOR = { home: "home", maker: "maker", matches: "maker", lessons: "maker", lesson: "maker", garments: "garments", garment: "garments", donate: "donate", dashboard: "dashboard", trainer: "trainer" };
+const NAV_FOR = { home: "home", maker: "maker", matches: "maker", money: "maker", lessons: "maker", lesson: "maker", mentors: "mentors", garments: "garments", garment: "garments", donate: "donate", brand: "donate", dashboard: "dashboard", trainer: "trainer" };
 function header(cur) {
   const link = (key, href, label) => `<a href="#${href}"${cur === key ? ' aria-current="page"' : ""}>${label}</a>`;
   return `<div class="wrap">
-    <nav class="site-nav" aria-label="Main">${link("garments", "garments", "Collection")}${link("maker", `maker-${S.me}`, "Makers")}</nav>
-    <a class="brandmark" href="#home">${icon("rose")}The Rose</a>
+    <nav class="site-nav" aria-label="Main">${link("maker", `maker-${S.me}`, "Makers")}${link("mentors", "mentors", "Mentors")}</nav>
+    <a class="brandmark" href="#home"><img src="rose-logo.png" alt="">The Rose</a>
     <nav class="site-nav right" aria-label="More">${link("donate", "donate", "For brands")}${link("dashboard", "dashboard", "Impact")}</nav>
     <button class="menu-btn" data-act="menu" aria-expanded="false" aria-label="Open menu">${icon("menu")}</button>
   </div>
   <nav class="mobile-nav" aria-label="Menu">
-    ${link("home", "home", "Home")}${link("garments", "garments", "Collection")}${link("maker", `maker-${S.me}`, "Makers")}${link("donate", "donate", "For brands")}${link("dashboard", "dashboard", "Impact")}
+    ${link("home", "home", "Home")}${link("maker", `maker-${S.me}`, "Makers")}${link("mentors", "mentors", "Mentors")}${link("donate", "donate", "For brands")}${link("garments", "garments", "Garments")}${link("dashboard", "dashboard", "Impact")}
     <button class="m-small" data-act="scan">Scan a garment</button>
     <a class="m-small" href="#trainer">Trainer area</a>
   </nav>`;
 }
 function footer() {
   return `<div class="wrap">
-    <a class="brandmark" href="#home">${icon("rose")}The Rose</a>
-    <p class="tagline">Fashion waste, remade by hand in London by people building a fresh start.</p>
-    <ul><li><a href="#garments">Collection</a></li><li><a href="#maker-${S.me}">Makers</a></li><li><a href="#donate">For brands</a></li><li><a href="#dashboard">Impact</a></li><li><a href="#trainer">Trainer area</a></li></ul>
+    <a class="brandmark" href="#home"><img src="rose-logo.png" alt="">The Rose</a>
+    <p class="tagline">Connecting people leaving prison with mentors, discarded fabric and the buyers who wear what they make.</p>
+    <ul><li><a href="#maker-${S.me}">Makers</a></li><li><a href="#mentors">Mentors</a></li><li><a href="#money">Money</a></li><li><a href="#donate">For brands</a></li><li><a href="#garments">Garments</a></li><li><a href="#dashboard">Impact</a></li><li><a href="#trainer">Trainer area</a></li></ul>
     <ul>${SUPPORT.map(s => `<li><a href="${s.url}" target="_blank" rel="noopener">${s.name}</a></li>`).join("")}</ul>
     <p class="fine">Sample data. All people, brands and numbers on this site are examples for a demo.</p>
   </div>`;
@@ -951,6 +1133,9 @@ function route() {
     case "trainer": html = viewTrainer(); break;
     case "maker": html = viewMaker(arg || S.me); break;
     case "matches": html = viewMatches(); break;
+    case "mentors": html = viewMentors(); break;
+    case "money": html = viewMoney(); break;
+    case "brand": html = viewBrand(arg); break;
     case "lessons": html = viewLessons(); break;
     case "lesson": html = viewLessons(arg); break;
     case "garments": html = viewGarments(); break;
@@ -1016,6 +1201,11 @@ document.addEventListener("click", e => {
   }
   if (act === "back") { if (history.length > 1) history.back(); else go("home"); }
   if (act === "scan") scanSheet();
+  if (act === "save-add") {
+    const sv = S.savings[S.me], before = sv.saved;
+    sv.saved = Math.min(sv.target, sv.saved + +a.dataset.amt); save(); route();
+    if (before < sv.target && sv.saved >= sv.target) sheet("Goal reached", `You saved £${fmt(sv.target)} for: ${esc(sv.goal)}. Show your trainer, they will add a badge to your passport.`);
+  }
   if (act === "menu") setMenu(!$("head").classList.contains("open"));
   if (act === "tsel") { S.trainerSel = id; save(); route(); }
   if (act === "verify") {
