@@ -1,0 +1,1102 @@
+<title>The Rose</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..500;1,6..96,400&family=Jost:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* Minimal and classy, after The Linearity: lots of air, a centred logo, thin uppercase serif headings, hairlines, square corners, very few buttons.
+   One brand palette: ivory and oxblood, in both light and dark system settings. */
+:root {
+  --bg: #FAF8F4; --card: #FFFFFF; --ink: #1B1918; --muted: #6F6A64; --rose: #7A1F33; --rose-ink: #FFFFFF; --rose-soft: #F1E4E4;
+  --rule: rgba(27, 25, 24, .14); --stage: #EFECE6;
+  --ok: #2F5F4B; --ok-soft: #E3EDE7; --warn: #8A5A00; --warn-soft: #F5EBD6;
+  color-scheme: light;
+  --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body: "Jost", "Futura", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.65; font-weight: 400; -webkit-text-size-adjust: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+p { margin: 0; }
+a { color: var(--ink); }
+img { display: block; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+
+/* ---------- frame ---------- */
+.wrap { max-width: 1200px; margin: 0 auto; padding-inline: 16px; }
+@media (min-width: 760px) { .wrap { padding-inline: 40px; } }
+
+.site-head { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+.site-head .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 76px; gap: 16px; }
+.brandmark { display: grid; justify-items: center; gap: 2px; text-decoration: none; color: var(--ink); font-family: var(--display); font-size: 15px; letter-spacing: .34em; text-transform: uppercase; padding-left: .34em; }
+.brandmark svg { width: 24px; height: 24px; color: var(--rose); }
+.site-nav { display: flex; gap: 28px; }
+.site-nav.right { justify-content: flex-end; }
+.site-nav a, .site-nav button { text-decoration: none; color: var(--muted); font-size: 12px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; padding: 12px 0; background: none; border: 0; cursor: pointer; transition: color .2s; }
+.site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--ink); }
+.site-nav a[aria-current="page"] { box-shadow: inset 0 -1px 0 var(--ink); }
+.menu-btn, .site-nav .m-only, .mobile-nav { display: none; }
+.sample { position: fixed; left: 12px; bottom: 12px; z-index: 40; font-size: 10.5px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--warn); background: var(--warn-soft); padding: 5px 9px; }
+
+@media (max-width: 899px) {
+  .site-head { backdrop-filter: none; background: var(--bg); }
+  .site-head .wrap { grid-template-columns: 48px 1fr 48px; min-height: 64px; }
+  .site-head .site-nav { display: none; }
+  .brandmark { font-size: 13px; }
+  .brandmark svg { width: 20px; height: 20px; }
+  .menu-btn { display: grid; grid-column: 3; place-items: center; width: 48px; height: 48px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+  .menu-btn svg { width: 24px; height: 24px; }
+  .site-head.open .mobile-nav { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; height: calc(100dvh - 64px); overflow-y: auto; background: var(--bg); padding: 24px 16px 48px; border-top: 1px solid var(--rule); z-index: 30; text-align: center; }
+  .mobile-nav a, .mobile-nav button { display: block; background: none; border: 0; border-bottom: 1px solid var(--rule); padding: 20px 0; font-family: var(--display); font-size: 26px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); text-decoration: none; cursor: pointer; }
+  .mobile-nav a[aria-current="page"] { color: var(--rose); }
+  .mobile-nav .m-small { font-family: var(--body); font-size: 12px; letter-spacing: .22em; color: var(--muted); padding: 16px 0; }
+  .mobile-nav .m-small:first-of-type { margin-top: 24px; }
+  body.menu-open { overflow: hidden; }
+}
+
+main { display: grid; gap: 56px; padding-block: 48px 96px; }
+@media (min-width: 760px) { main { gap: 96px; padding-block: 72px 140px; } }
+
+.site-foot { border-top: 1px solid var(--rule); text-align: center; }
+.site-foot .wrap { display: grid; gap: 28px; justify-items: center; padding-block: 56px 72px; }
+.site-foot ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 28px; }
+.site-foot a, .site-foot .link { color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; font-weight: 500; }
+.site-foot a:hover { color: var(--ink); }
+.site-foot .tagline { font-family: var(--display); font-style: italic; font-size: 20px; color: var(--ink); max-width: 520px; }
+.site-foot .fine { color: var(--muted); font-size: 13px; }
+
+/* ---------- type ---------- */
+.h1 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 4.8vw, 58px); line-height: 1.12; letter-spacing: .05em; text-transform: uppercase; }
+.h2 { font-family: var(--display); font-weight: 400; font-size: clamp(22px, 2.8vw, 32px); line-height: 1.2; letter-spacing: .06em; text-transform: uppercase; }
+.h1 em, .h2 em { font-style: italic; text-transform: none; letter-spacing: 0; color: var(--rose); }
+.label { font-size: 11.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.lead { color: var(--muted); font-size: 18px; line-height: 1.7; }
+.small { font-size: 15px; color: var(--muted); }
+.stack { display: grid; gap: 14px; }
+.section { display: grid; gap: 20px; }
+.page-head { display: grid; gap: 16px; justify-items: center; text-align: center; max-width: 720px; margin-inline: auto; }
+.page-head .lead { max-width: 600px; }
+.crumbs { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: -40px; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--ink); }
+.sec-head { display: grid; justify-items: center; gap: 10px; text-align: center; }
+.foot-note { font-size: 13px; color: var(--muted); }
+
+/* ---------- layout ---------- */
+.split { display: grid; gap: 32px; min-width: 0; }
+.split > * { min-width: 0; }
+.col { display: grid; gap: 24px; align-content: start; min-width: 0; }
+.grid3, .grid4, .grid5 { display: grid; gap: 20px; }
+@media (min-width: 760px) {
+  .grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .grid5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .btn.auto { width: auto; padding-inline: 44px; }
+}
+@media (min-width: 900px) {
+  .split { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: start; }
+  .split.side { grid-template-columns: 340px minmax(0, 1fr); }
+  .split.wide { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+  .sticky { position: sticky; top: 108px; }
+}
+
+/* ---------- controls: few, quiet, square ---------- */
+.btn { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 14px 24px; border-radius: 0; border: 1px solid var(--ink); background: transparent; color: var(--ink); font-size: 12.5px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; cursor: pointer; text-decoration: none; text-align: center; width: 100%; transition: background .25s, color .25s; }
+.btn:hover { background: var(--ink); color: var(--bg); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+.btn.rose { background: var(--ink); color: var(--bg); }
+.btn.rose:hover { background: var(--rose); border-color: var(--rose); color: var(--rose-ink); }
+.btn.line { background: transparent; }
+.btn.ok, .btn.ok:hover { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); cursor: default; }
+.btn.sm { min-height: 48px; padding: 10px 18px; }
+.btn:disabled { cursor: default; }
+.link { display: inline-flex; align-items: center; min-height: 44px; background: none; border: 0; padding: 0; color: var(--ink); font-size: 12px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 8px; cursor: pointer; text-align: left; transition: text-decoration-color .2s; }
+.link:hover { text-decoration-color: var(--ink); }
+
+.card { background: var(--card); border: 1px solid var(--rule); padding: 28px; display: grid; gap: 14px; min-width: 0; }
+@media (max-width: 599px) { .card { padding: 20px; } }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; font-size: 14px; padding: 6px 14px; border: 1px solid var(--rule); border-radius: 999px; }
+.chip.match { background: var(--rose-soft); border-color: transparent; }
+.chip.new { background: var(--ok-soft); border-color: var(--ok); }
+
+.avatar { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; font-family: var(--display); font-size: 30px; color: #fff; flex: none; filter: saturate(.55); }
+.avatar.sm { width: 48px; height: 48px; font-size: 20px; }
+.who { display: flex; align-items: center; gap: 16px; }
+
+.badge { display: grid; grid-template-columns: 36px 1fr auto; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.badge:last-child { border-bottom: 0; padding-bottom: 0; }
+.badge .seal { width: 36px; height: 36px; display: grid; place-items: center; color: var(--rose); border: 1px solid var(--rule); border-radius: 50%; }
+.badge .seal svg { width: 18px; height: 18px; }
+.badge b { display: block; font-weight: 500; font-size: 16.5px; line-height: 1.3; }
+.badge small { font-size: 13.5px; color: var(--muted); }
+.status { font-size: 10.5px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; padding: 4px 9px; white-space: nowrap; }
+.status.ver { background: var(--ok-soft); color: var(--ok); }
+.status.pend { background: var(--warn-soft); color: var(--warn); }
+.badge.fresh { animation: pop .8s ease; }
+@keyframes pop { 0% { background: var(--ok-soft); } 100% { background: transparent; } }
+
+.switch { display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; }
+.switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.switch .track { width: 52px; height: 30px; border-radius: 999px; background: var(--stage); position: relative; flex: none; transition: background .2s; border: 1px solid var(--rule); }
+.switch .track::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: var(--card); box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: transform .2s; }
+.switch input:checked + .track { background: var(--ok); }
+.switch input:checked + .track::after { transform: translateX(22px); }
+.switch input:focus-visible + .track { outline: 2px solid var(--rose); outline-offset: 2px; }
+
+/* ---------- imagery ---------- */
+.pic { background: var(--stage); position: relative; display: grid; place-items: center; text-align: center; overflow: hidden; }
+.pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(.2, .7, .2, 1); }
+.pic .ph { display: grid; gap: 8px; justify-items: center; font-family: var(--display); font-style: italic; font-size: 20px; padding: 16px; }
+.pic .ph svg { width: 32px; height: 32px; color: var(--muted); }
+.pic .ph small { font-family: var(--body); font-style: normal; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.thumbs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+
+.shop { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 16px; }
+@media (min-width: 760px) { .shop { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px 28px; } }
+@media (min-width: 1100px) { .shop.five { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.product { display: grid; gap: 6px; justify-items: center; text-align: center; background: none; border: 0; padding: 0; cursor: pointer; color: var(--ink); }
+.product .pic { width: 100%; aspect-ratio: 3/4; margin-bottom: 10px; }
+.product:hover .pic img { transform: scale(1.04); }
+.product b { font-family: var(--display); font-weight: 400; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; line-height: 1.35; }
+.product .maker { font-size: 13.5px; color: var(--muted); }
+.product .row { font-size: 14px; color: var(--muted); }
+
+/* ---------- home ---------- */
+.hero { display: grid; justify-items: center; text-align: center; gap: 22px; padding-top: 24px; }
+.hero .h1 { font-size: clamp(34px, 6.4vw, 78px); max-width: 15ch; }
+.hero .lead { max-width: 520px; }
+.drop { width: 1px; height: 72px; background: var(--rule); }
+.strip { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 16px; align-items: end; margin-top: -40px; }
+.strip a { display: block; }
+.strip .pic { aspect-ratio: 3/4; }
+.strip a:nth-child(2) .pic { aspect-ratio: 4/5; }
+.strip a:hover img { transform: scale(1.04); }
+@media (max-width: 599px) { .strip { grid-template-columns: 1fr 1fr; } .strip a:nth-child(3) { display: none; } .strip a:nth-child(2) .pic { aspect-ratio: 3/4; } }
+
+.entries { display: grid; border-block: 1px solid var(--rule); }
+.entry { display: grid; gap: 6px; justify-items: center; text-align: center; padding: 30px 16px; background: none; border: 0; cursor: pointer; color: var(--ink); transition: background .25s; }
+.entry + .entry { border-top: 1px solid var(--rule); }
+.entry b { font-family: var(--display); font-weight: 400; font-size: 22px; letter-spacing: .08em; text-transform: uppercase; }
+.entry span { font-size: 14.5px; color: var(--muted); }
+.entry i { font-style: normal; font-size: 11.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--rose); margin-top: 6px; }
+.entry:hover { background: var(--card); }
+@media (min-width: 760px) { .entries { grid-template-columns: repeat(3, 1fr); } .entry + .entry { border-top: 0; border-left: 1px solid var(--rule); } .entry { padding: 44px 24px; } }
+
+.zig { position: relative; display: grid; gap: 64px; }
+.zig-row { display: grid; gap: 28px; align-items: center; }
+.zig-row .pic { aspect-ratio: 4/5; }
+.zig-text { display: grid; gap: 16px; justify-items: center; text-align: center; max-width: 400px; margin-inline: auto; }
+.zig-text p { color: var(--muted); }
+@media (min-width: 900px) {
+  .zig::before { content: ""; position: absolute; left: 50%; top: -48px; bottom: -48px; width: 1px; background: var(--rule); }
+  .zig { gap: 0; }
+  .zig-row { grid-template-columns: 1fr 1fr; gap: 0; }
+  .zig-row .pic { width: 66%; margin-inline: auto; }
+  .zig-row:nth-child(even) .pic { order: 2; }
+  .zig-row:nth-child(even) .zig-text { order: 1; }
+  .zig-row + .zig-row { margin-top: -40px; }
+}
+
+.ticker { display: grid; grid-template-columns: repeat(2, 1fr); border-block: 1px solid var(--rule); }
+.ticker div { display: grid; gap: 4px; justify-items: center; text-align: center; padding: 28px 8px; }
+.ticker div:nth-child(odd) { border-right: 1px solid var(--rule); }
+.ticker div:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+.ticker b { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 4vw, 46px); line-height: 1; font-variant-numeric: lining-nums tabular-nums; }
+.ticker span { font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+@media (min-width: 760px) { .ticker { grid-template-columns: repeat(4, 1fr); } .ticker div { padding: 40px 8px; border-bottom: 0 !important; } .ticker div + div { border-left: 1px solid var(--rule); } .ticker div:nth-child(odd) { border-right: 0; } }
+
+.circles { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.circles div { display: grid; gap: 6px; padding: 22px 0; border-bottom: 1px solid var(--rule); text-align: center; }
+.circles b { font-family: var(--display); font-weight: 400; font-size: 18px; letter-spacing: .1em; text-transform: uppercase; }
+.circles span { font-size: 14.5px; color: var(--muted); }
+@media (min-width: 900px) { .circles { grid-template-columns: repeat(5, 1fr); border-bottom: 1px solid var(--rule); } .circles div { border-bottom: 0; padding: 32px 18px; } .circles div + div { border-left: 1px solid var(--rule); } }
+
+.rv { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
+.rv.in { opacity: 1; transform: none; }
+
+/* ---------- passports, lists, forms ---------- */
+.item { display: grid; gap: 12px; }
+.item-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.meta { font-size: 14.5px; color: var(--muted); }
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
+.facts div { padding: 14px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 2px; }
+.facts div:nth-child(odd) { padding-right: 14px; }
+.facts div:nth-child(even) { padding-left: 14px; border-left: 1px solid var(--rule); }
+.facts span { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.facts b { font-weight: 500; font-size: 16px; }
+.kpi-row b { font-family: var(--display); font-size: 30px; font-weight: 400; line-height: 1.15; }
+
+.story { border-left: 1px solid var(--rose); padding-left: 18px; font-family: var(--display); font-style: italic; font-size: 20px; line-height: 1.5; }
+.private { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 15px; border: 1px dashed var(--rule); padding: 14px 16px; }
+.private svg { width: 20px; height: 20px; flex: none; }
+
+.kpis { display: grid; gap: 0; border-block: 1px solid var(--rule); }
+.kpi { display: grid; gap: 4px; justify-items: center; text-align: center; padding: 36px 16px; }
+.kpi + .kpi { border-top: 1px solid var(--rule); }
+@media (min-width: 760px) { .kpis.grid3 { gap: 0; } .kpi + .kpi { border-top: 0; border-left: 1px solid var(--rule); } }
+.kpi b { font-family: var(--display); font-weight: 400; font-size: clamp(46px, 6vw, 68px); line-height: 1; font-variant-numeric: lining-nums tabular-nums; }
+.kpi b small { font-family: var(--body); font-size: 18px; margin-left: 6px; }
+.kpi span { font-size: 11.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+.kpi em { font-style: normal; font-size: 14px; color: var(--ok); min-height: 1.5em; }
+.kpi.bump { animation: bump 1.2s ease; }
+@keyframes bump { 0%, 100% { background: transparent; } 30% { background: var(--ok-soft); } }
+
+.rows { display: grid; }
+.rows > div { display: flex; justify-content: space-between; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 15.5px; }
+.rows > div:last-child { border-bottom: 0; }
+.rows b { font-weight: 500; }
+.rows .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+form { display: grid; gap: 20px; }
+.field { display: grid; gap: 8px; }
+.field label, .field > span:first-child { font-size: 11.5px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.field .hint { font-size: 14px; color: var(--muted); }
+.field input, .field select, .field textarea { width: 100%; min-height: 54px; padding: 12px 14px; border-radius: 0; border: 1px solid var(--rule); background: var(--card); font-size: 17px; }
+.field input:focus, .field select:focus { border-color: var(--ink); outline: none; }
+.err { color: var(--rose); font-size: 14.5px; min-height: 1.2em; }
+.checks { display: flex; flex-wrap: wrap; gap: 8px; }
+.checks label { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid var(--rule); cursor: pointer; font-size: 15px; text-transform: none; letter-spacing: 0; color: var(--ink); }
+.checks input { width: 18px; height: 18px; accent-color: var(--ink); }
+.checks label:has(input:checked) { border-color: var(--ink); }
+
+.seg { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
+.seg button { flex: none; min-height: 46px; padding: 8px 20px; border: 1px solid var(--rule); background: transparent; cursor: pointer; font-size: 15px; }
+.seg button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--bg); }
+
+.lesson-pt { display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 6px 0; }
+.lesson-pt i { font-family: var(--display); font-style: italic; font-size: 26px; color: var(--rose); line-height: 1.1; }
+.opts { display: grid; gap: 10px; }
+.opts button { min-height: 56px; text-align: left; padding: 12px 16px; border: 1px solid var(--rule); background: var(--card); cursor: pointer; font-size: 16.5px; }
+.opts button:hover { border-color: var(--ink); }
+.opts button.wrong { border-color: var(--rose); background: var(--rose-soft); }
+.opts button.right { border-color: var(--ok); background: var(--ok-soft); }
+
+.qrwrap { display: grid; grid-template-columns: 112px 1fr; gap: 18px; align-items: center; }
+.qrbox { background: #fff; padding: 8px; }
+.qrbox svg { width: 100%; height: auto; display: block; }
+.url { font-family: var(--mono); font-size: 11.5px; word-break: break-all; color: var(--muted); }
+.tags { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (min-width: 760px) { .tags.grid5 { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.tag { background: #fff; color: #1B1918; padding: 14px; display: grid; gap: 6px; justify-items: center; text-align: center; border: 1px solid var(--rule); }
+.tag b { font-family: var(--display); font-weight: 400; font-size: 13px; letter-spacing: .3em; text-transform: uppercase; }
+.tag small { font-size: 11px; color: #6F6A64; }
+
+.who-for { display: grid; }
+.who-for div { display: grid; grid-template-columns: 112px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 15px; }
+
+/* ---------- sheets ---------- */
+.sheet-bg { position: fixed; inset: 0; z-index: 50; background: rgba(15, 12, 10, .45); display: grid; align-items: end; justify-items: center; padding: 16px; padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); animation: fade .25s ease; }
+@media (min-width: 760px) { .sheet-bg { align-items: center; } }
+@keyframes fade { from { opacity: 0; } }
+.sheet { width: 100%; max-width: 460px; background: var(--bg); padding: 36px 28px 28px; display: grid; gap: 16px; justify-items: center; text-align: center; box-shadow: 0 40px 80px -20px rgba(0,0,0,.4); animation: up .35s cubic-bezier(.2, .7, .2, 1); max-height: 85vh; overflow-y: auto; }
+.sheet > .btn, .sheet .stack { width: 100%; }
+@keyframes up { from { transform: translateY(20px); opacity: 0; } }
+.sheet .done-ico { width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--ok); color: var(--ok); display: grid; place-items: center; }
+.sheet .done-ico svg { width: 26px; height: 26px; }
+.sheet .h2 { font-size: 24px; }
+.sheet p { color: var(--muted); }
+
+@media (max-width: 899px) { .site-head .brandmark { grid-column: 2; } }
+@media (max-width: 599px) { .site-foot .wrap { padding-bottom: 72px; } }
+
+/* ---------- motion: buttons ---------- */
+:root { --ease: cubic-bezier(.22, .8, .24, 1); }
+/* A fill sweeps in from the left on hover; the label stays on top */
+.btn { position: relative; overflow: hidden; isolation: isolate; transition: color .45s var(--ease), border-color .45s var(--ease), transform .2s var(--ease); }
+.btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--ink); transform: scaleX(0); transform-origin: right; transition: transform .55s var(--ease); }
+.btn:hover { background: transparent; color: var(--bg); }
+.btn:hover::before { transform: scaleX(1); transform-origin: left; }
+.btn.rose::before { background: var(--rose); }
+.btn.rose:hover { background: var(--ink); border-color: var(--rose); color: var(--rose-ink); }
+.btn.ok::before { display: none; }
+.btn:active:not(:disabled) { transform: scale(.98); }
+.btn.ok { animation: settle .5s var(--ease); }
+@keyframes settle { from { transform: scale(.96); opacity: .6; } }
+
+/* Text links: the underline draws itself */
+.link { text-decoration: none; background: linear-gradient(currentColor, currentColor) left calc(50% + 12px) / 0 1px no-repeat, linear-gradient(var(--rule), var(--rule)) left calc(50% + 12px) / 100% 1px no-repeat; transition: background-size .5s var(--ease); }
+.link:hover { background-size: 100% 1px, 100% 1px; }
+.site-nav a { position: relative; box-shadow: none !important; }
+.site-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 1px; background: currentColor; transform: scaleX(0); transition: transform .45s var(--ease); }
+.site-nav a:hover::after, .site-nav a[aria-current="page"]::after { transform: scaleX(1); }
+
+/* Entry tiles: heading opens up, the cue slides an arrow in */
+.entry b { transition: letter-spacing .6s var(--ease), color .3s; }
+.entry:hover b { letter-spacing: .14em; color: var(--rose); }
+.entry i::after { content: "→"; display: inline-block; margin-left: 0; opacity: 0; max-width: 0; transform: translateX(-6px); transition: all .45s var(--ease); }
+.entry:hover i::after { opacity: 1; max-width: 1.5em; margin-left: 8px; transform: none; }
+.entry:active { transform: scale(.99); }
+
+/* Product cards: the name gets an underline */
+.product b { background: linear-gradient(currentColor, currentColor) center bottom / 0 1px no-repeat; padding-bottom: 2px; transition: background-size .5s var(--ease); }
+.product:hover b { background-size: 100% 1px; }
+.opts button, .seg button, .checks label, .chip { transition: border-color .3s, background .3s, transform .2s var(--ease); }
+.opts button:active, .seg button:active { transform: scale(.985); }
+.opts button.wrong { animation: shake .4s ease; }
+@keyframes shake { 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
+.menu-btn svg { transition: transform .4s var(--ease); }
+.site-head.open .menu-btn svg { transform: rotate(90deg); }
+
+/* ---------- motion: text ---------- */
+/* Headlines rise word by word from behind a mask */
+.w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+.w > span { display: inline-block; transform: translateY(105%); animation: rise 1s var(--ease) forwards; animation-delay: calc(var(--i) * 70ms + 80ms); }
+@keyframes rise { to { transform: none; } }
+/* Labels, leads and the hairline follow in sequence */
+.fade-up { opacity: 0; animation: fadeUp .9s var(--ease) forwards; animation-delay: var(--d, 0ms); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.drop { transform-origin: top; animation: draw 1.1s var(--ease) .7s both; }
+@keyframes draw { from { transform: scaleY(0); } }
+.strip .pic { animation: fadeUp 1.1s var(--ease) both; }
+.strip a:nth-child(1) .pic { animation-delay: .5s; }
+.strip a:nth-child(2) .pic { animation-delay: .35s; }
+.strip a:nth-child(3) .pic { animation-delay: .65s; }
+/* Sections that scroll in: children arrive one after another */
+.rv > * { opacity: 0; transform: translateY(16px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.rv.in > * { opacity: 1; transform: none; }
+.rv.in > *:nth-child(2) { transition-delay: .12s; }
+.rv.in > *:nth-child(3) { transition-delay: .24s; }
+.rv.in > *:nth-child(4) { transition-delay: .36s; }
+.rv.in > *:nth-child(5) { transition-delay: .48s; }
+.rv { opacity: 1; transform: none; }
+.zig-row.rv > .pic { transform: translateY(28px) scale(.98); }
+.zig-row.rv.in > .pic { transform: none; }
+/* Confirmation tick draws itself */
+.sheet .done-ico svg path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: tick .6s var(--ease) .2s forwards; }
+@keyframes tick { to { stroke-dashoffset: 0; } }
+.kpi b, .ticker b { transition: color .3s; }
+@media (prefers-reduced-motion: reduce) {
+  .w > span, .fade-up, .rv > * { transform: none !important; opacity: 1 !important; }
+  .sheet .done-ico svg path { stroke-dashoffset: 0; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-rose" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8c-3.4 0-6.2 2.4-6.2 5.6 0 2.7 2 4.6 4.4 5.1.6.1 1.2.2 1.8.2s1.2-.1 1.8-.2c2.4-.5 4.4-2.4 4.4-5.1 0-3.2-2.8-5.6-6.2-5.6z"/><path d="M12 5.4c-1.9 0-3.4 1.2-3.4 2.9 0 1.6 1.4 2.5 3.1 2.5 1.5 0 2.4-.8 2.4-2 0-1-.8-1.8-1.9-1.8-.9 0-1.5.5-1.5 1.2"/><path d="M6.4 10.4c1.2 1.4 3 2.1 5.6 2.1s4.4-.7 5.6-2.1"/><path d="M12 14v8"/><path d="M12 19c2.6-.1 4.2-1.4 4.7-3.6-2.6 0-4.4 1.3-4.7 3.6z"/></g></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></g></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M8 8h3v3H8zM13 13h3v3h-3zM13 8h3M8 16h3"/></g></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 10h16v10H4zM3 7h18v3H3zM12 7v13"/><path d="M12 7c-1.5-3-5-3-5-1s3 1 5 1zM12 7c1.5-3 5-3 5-1s-3 1-5 1z"/></g></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20h16M7 16v-5M12 16V7M17 16v-8"/></g></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></g></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="7" cy="12" r="3"/><circle cx="17" cy="6" r="3"/><circle cx="17" cy="18" r="3"/><path d="M9.6 10.6l4.8-3M9.6 13.4l4.8 3"/></g></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-seal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14l-1.5 7 5-2.5 5 2.5-1.5-7"/><path d="M9.5 9l1.8 1.8L14.5 7.6" stroke-linecap="round"/></g></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></g></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v14"/></g></symbol>
+</svg>
+
+<header class="site-head" id="head"></header>
+<div class="wrap" id="app"></div>
+<footer class="site-foot" id="foot"></footer>
+<span class="sample">Sample data</span>
+<div id="sheet-root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+/* ============================================================
+   SAMPLE DATA. Replace texts, photos and numbers here.
+   First names only. No surnames, prison names or offences.
+   ============================================================ */
+const BASE_URL = "https://claude.ai/artifact/JN9YpmEpMPAAuW3hhttr5C";
+const TRAINER = "Nadia, workshop trainer";
+const SKILLS = ["Machine sewing", "Hand sewing", "Pattern cutting", "Overlocking", "Embroidery", "Finishing and pressing", "Quality checks", "Money basics"];
+
+const SEED_MAKERS = {
+  sam: { name: "Sam", color: "#9E2348", since: "March 2026", workshop: "East London workshop",
+    about: "Learning tailoring at The Rose. Quick and careful on the machine, and starting to cut patterns.",
+    skills: ["Machine sewing", "Hand sewing", "Pattern cutting"],
+    badges: [
+      { name: "Straight seams on the machine", skill: "Machine sewing", verified: true, by: TRAINER, date: "14 Apr 2026" },
+      { name: "Hand-finished hems", skill: "Hand sewing", verified: true, by: TRAINER, date: "2 Jun 2026" },
+      { name: "Cutting a T-shirt pattern", skill: "Pattern cutting", verified: true, by: TRAINER, date: "19 Aug 2026" },
+      { name: "Overlocking jersey", skill: "Overlocking", verified: false, by: "", date: "" }
+    ],
+    consent: false,
+    story: "I had never touched a sewing machine before. My first tote bag had crooked seams. Now I make jackets that people pay for, and I want to work in a tailoring house." },
+  leah: { name: "Leah", color: "#24624F", since: "January 2026", workshop: "South London workshop",
+    about: "Embroidery and finishing. Leah trains new makers on the pressing station.",
+    skills: ["Embroidery", "Hand sewing", "Finishing and pressing"],
+    badges: [
+      { name: "Chain-stitch embroidery", skill: "Embroidery", verified: true, by: TRAINER, date: "20 Feb 2026" },
+      { name: "Pressing and finishing", skill: "Finishing and pressing", verified: true, by: TRAINER, date: "11 May 2026" }
+    ],
+    consent: true,
+    story: "Embroidery slows my head down. Every stitch on this shirt is one I chose. I'm proud that someone will wear it to work." },
+  marcus: { name: "Marcus", color: "#3D4C7A", since: "July 2026", workshop: "East London workshop",
+    about: "New to the workshop. Strong on the machine and checks every garment before it leaves.",
+    skills: ["Machine sewing", "Quality checks"],
+    badges: [
+      { name: "Final quality check", skill: "Quality checks", verified: true, by: TRAINER, date: "30 Sep 2026" }
+    ],
+    consent: false,
+    story: "This coat took me four days. I checked every seam twice." }
+};
+
+const BRANDS = ["Brightwear", "Novo Street"];
+
+const GARMENTS = {
+  "tr-001": { name: "Rose Tee, white", maker: "sam", photo: "tee-white.png", price: 85, date: "3 Sep 2026", kg: 0.46,
+    materials: "Cotton jersey 100%", source: "Brightwear", lot: "BW-0412", note: "Unsold white jersey, end of a production run", skills: ["Machine sewing", "Overlocking"] },
+  "tr-002": { name: "Rose Tee, black", maker: "leah", photo: "tee-black.png", price: 85, date: "9 Sep 2026", kg: 0.52,
+    materials: "Cotton jersey 97%, elastane 3%", source: "Novo Street", lot: "NS-0108", note: "Black jersey offcuts from the cutting room", skills: ["Embroidery", "Finishing and pressing"] },
+  "tr-003": { name: "Fleece-Collar Denim Jacket", maker: "sam", photo: "denim-jacket.jpg", price: 240, date: "22 Sep 2026", kg: 1.8,
+    materials: "Cotton denim 100%, polyester fleece collar and cuffs", source: "Brightwear", lot: "BW-0431", note: "Denim and fleece lining from cancelled orders", skills: ["Pattern cutting", "Machine sewing"] },
+  "tr-004": { name: "Wool Overcoat", maker: "marcus", photo: "wool-overcoat.jpg", price: 420, date: "6 Oct 2026", kg: 3.4,
+    materials: "Wool 70%, polyester 30%", source: "Novo Street", lot: "NS-0122", note: "Surplus coating fabric from last winter", skills: ["Machine sewing", "Quality checks"] },
+  "tr-005": { name: "Striped Poplin Shirt", maker: "leah", photo: "poplin-shirt.jpg", price: 120, date: "14 Oct 2026", kg: 0.7,
+    materials: "Cotton poplin 100%", source: "Brightwear", lot: "BW-0447", note: "Shirting rolls with a print fault", skills: ["Hand sewing", "Embroidery"] }
+};
+
+const MENTORS = [
+  { id: "priya", name: "Priya", role: "Head cutter at a tailoring house", skills: ["Pattern cutting", "Hand sewing"], slot: "Thursday 14:00", color: "#7A4E9E" },
+  { id: "tom", name: "Tom", role: "Production lead at a denim brand", skills: ["Machine sewing", "Quality checks"], slot: "Monday 10:00", color: "#2F6A8F" },
+  { id: "grace", name: "Grace", role: "Volunteer money coach", skills: ["Money basics"], slot: "Wednesday 16:00", color: "#8F6A2F" },
+  { id: "ade", name: "Ade", role: "Tutor at a London fashion school", skills: ["Pattern cutting", "Embroidery"], slot: "Friday 11:00", color: "#2F8F6A" }
+];
+
+const JOBS = [
+  { id: "j1", title: "Sewing machinist", org: "Denim brand, Hackney", pay: "Full time · £13.50 an hour", skills: ["Machine sewing", "Overlocking"] },
+  { id: "j2", title: "Alterations assistant", org: "Tailoring house, Soho", pay: "Part time · £12.80 an hour", skills: ["Hand sewing", "Finishing and pressing"] },
+  { id: "j3", title: "Pattern-making internship", org: "Fashion school, King's Cross", pay: "3 months · paid", skills: ["Pattern cutting"] },
+  { id: "j4", title: "Embroidery assistant", org: "Bridal studio, Peckham", pay: "Full time · £13.00 an hour", skills: ["Embroidery"] }
+];
+
+const LESSONS = [
+  { id: "l1", title: "Reading your first payslip", mins: 6, badge: "Reading a payslip",
+    points: ["Gross pay is what you earn before anything is taken off.", "Tax and National Insurance are taken off before the money reaches you.", "Net pay is what lands in your bank account."],
+    q: "Which number is the money you actually receive?", options: ["Gross pay", "Net pay", "Tax code"], answer: 1 },
+  { id: "l2", title: "Budgeting your first month", mins: 8, badge: "Budgeting basics",
+    points: ["List what you must pay first: rent, bills, travel and food.", "Put a small amount aside every week, even £5.", "Check your balance before you spend, not after."],
+    q: "What should you pay first?", options: ["New clothes", "Rent and bills", "A phone upgrade"], answer: 1 },
+  { id: "l3", title: "Opening a bank account", mins: 5, badge: "Banking basics",
+    points: ["Many banks offer a basic account with no credit check.", "Bring proof of identity. Your trainer can help you get it.", "Set up a PIN that only you know."],
+    q: "Who should know your bank PIN?", options: ["Only you", "Your employer", "Anyone who asks"], answer: 0 }
+];
+
+const SUPPORT = [
+  { name: "Samaritans", what: "Free to call, day or night, if you need to talk.", contact: "Call 116 123", url: "https://www.samaritans.org" },
+  { name: "Mind", what: "Mental health information and local support services.", contact: "mind.org.uk", url: "https://www.mind.org.uk" },
+  { name: "Nacro", what: "Help with housing, work and benefits after leaving prison.", contact: "nacro.org.uk", url: "https://www.nacro.org.uk" }
+];
+
+const BASE_IMPACT = { kg: 1240, trained: 38, hours: 412 };
+const SEED_DONATIONS = [
+  { brand: "Brightwear", type: "Denim", kg: 120, pickup: "Hackney workshop", date: "2 Oct 2026" },
+  { brand: "Novo Street", type: "Cotton jersey", kg: 85, pickup: "Brand warehouse (we collect)", date: "16 Oct 2026" }
+];
+
+/* ============================================================
+   STATE (kept in this browser so the demo survives a refresh)
+   ============================================================ */
+const KEY = "the-rose-demo-v1";
+const clone = o => JSON.parse(JSON.stringify(o));
+function fresh() { return { makers: clone(SEED_MAKERS), donations: clone(SEED_DONATIONS), booked: {}, contacted: {}, reserved: {}, lessons: {}, newMakers: 0, me: "sam", flash: null }; }
+let S;
+try { S = JSON.parse(localStorage.getItem(KEY)) || fresh(); } catch (e) { S = fresh(); }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmt = n => n.toLocaleString("en-GB", { maximumFractionDigits: 2 });
+const today = () => new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+const icon = (id, cls = "") => `<svg class="${cls}" aria-hidden="true"><use href="#i-${id}"/></svg>`;
+const $ = id => document.getElementById(id);
+
+function impact() {
+  const donated = S.donations.slice(SEED_DONATIONS.length).reduce((a, d) => a + d.kg, 0);
+  const hours = Object.keys(S.booked).length;
+  return { kg: BASE_IMPACT.kg + donated, trained: BASE_IMPACT.trained + S.newMakers, hours: BASE_IMPACT.hours + hours, addKg: donated, addHours: hours, addTrained: S.newMakers };
+}
+function shared(a, b) { return a.filter(x => b.includes(x)); }
+function qrSVG(text) {
+  try { const q = qrcode(0, "M"); q.addData(text); q.make(); return q.createSvgTag({ cellSize: 4, margin: 2, scalable: true }); }
+  catch (e) { return ""; }
+}
+const garmentURL = id => `${BASE_URL}#garment-${id}`;
+
+/* ============================================================
+   SCREENS
+   ============================================================ */
+function crumbs(...items) {
+  return `<nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a>${items.map(([label, href]) => `<span aria-hidden="true">/</span>${href ? `<a href="#${href}">${esc(label)}</a>` : `<span>${esc(label)}</span>`}`).join("")}</nav>`;
+}
+function picHTML(g, alt = "") {
+  return g.photo ? `<img src="${g.photo}" alt="${esc(alt)}">` : `<span class="ph">${icon("rose")}${esc(g.name)}<small>Photo coming soon</small></span>`;
+}
+function productCard(id, g) {
+  return `<button class="product" data-go="garment-${id}"><div class="pic">${picHTML(g)}</div><b>${esc(g.name)}</b><span class="maker">Made by ${esc(S.makers[g.maker].name)}</span><span class="row">£${g.price} · ${fmt(g.kg)} kg saved</span></button>`;
+}
+
+function viewHome() {
+  const k = impact();
+  const pic = id => `<a href="#garment-${id}" aria-label="${esc(GARMENTS[id].name)}"><div class="pic">${picHTML(GARMENTS[id], GARMENTS[id].name)}</div></a>`;
+  const zig = (id, n, title, text) => `<div class="zig-row rv">
+      <div class="pic">${picHTML(GARMENTS[id], GARMENTS[id].name)}</div>
+      <div class="zig-text"><p class="label">${n}</p><h2 class="h2">${title}</h2><p>${text}</p></div>
+    </div>`;
+  return `<main>
+    <section class="hero">
+      <p class="label">London workshops</p>
+      <h1 class="h1">From fashion waste <em>to a fresh start</em></h1>
+      <p class="lead">Clothes cut and sewn by hand by people leaving prison, from fabric that fast fashion threw away.</p>
+      <span class="drop" aria-hidden="true"></span>
+    </section>
+
+    <section class="strip">${pic("tr-003")}${pic("tr-001")}${pic("tr-004")}</section>
+
+    <nav class="entries rv" aria-label="Start here">
+      <button class="entry" data-go="maker-${S.me}"><b>I'm a maker</b><span>Your passport, matches and lessons</span><i>Open</i></button>
+      <button class="entry" data-act="scan"><b>Scan a garment</b><span>See who made it and what it saved</span><i>Scan</i></button>
+      <button class="entry" data-go="donate"><b>Donate fabric</b><span>For brands with textile waste</span><i>Donate</i></button>
+    </nav>
+
+    <section class="zig">
+      ${zig("tr-002", "I · The fabric", "Waste, rescued", "Fast-fashion brands send us offcuts and unsold stock. Every kilo is weighed, and every brand can see what it became.")}
+      ${zig("tr-004", "II · The hands", "Made by hand", "People leaving prison learn the trade from our tailors. Each skill a trainer checks becomes a verified badge on their Maker Passport.")}
+      ${zig("tr-005", "III · The passport", "A story in every seam", "A QR code sewn inside opens the Garment Passport: materials, waste saved, and the maker's story, only if they choose to share it.")}
+    </section>
+
+    <section class="section rv">
+      <div class="sec-head"><p class="label">The collection</p><h2 class="h2">Five pieces, five passports</h2></div>
+      <div class="shop five">${Object.entries(GARMENTS).map(([id, g]) => productCard(id, g)).join("")}</div>
+    </section>
+
+    <section class="ticker rv">
+      <div><b>${fmt(k.kg)}</b><span>Kg of fabric reused</span></div>
+      <div><b>${fmt(k.trained)}</b><span>People trained</span></div>
+      <div><b>${fmt(k.hours)}</b><span>Hours of mentoring</span></div>
+      <div><b>${Object.keys(GARMENTS).length}</b><span>Garment passports</span></div>
+    </section>
+
+    <section class="section rv">
+      <div class="sec-head"><p class="label">One platform</p><h2 class="h2">Who The Rose connects</h2></div>
+      <div class="circles">
+        <div><b>Makers</b><span>People leaving prison or on a rehabilitation programme, with permission to work.</span></div>
+        <div><b>Mentors</b><span>People from fashion brands who give time and advice.</span></div>
+        <div><b>Brands</b><span>Fast-fashion brands that donate waste and want to see where it goes.</span></div>
+        <div><b>Schools</b><span>Fashion schools that offer internships, like pattern making.</span></div>
+        <div><b>Customers</b><span>People who buy high-end clothes made from that waste.</span></div>
+      </div>
+    </section>
+  </main>`;
+}
+
+function viewGarments() {
+  return `<main>
+    ${crumbs(["Collection"])}
+    <div class="sec-head">
+      <div class="page-head"><h1 class="h1">The collection</h1><p class="lead">Every piece is cut and sewn by hand in our London workshops, from fabric that fast-fashion brands threw away. Each one has its own Garment Passport.</p></div>
+      <button class="link" data-act="scan">Scan a tag</button>
+    </div>
+    <div class="shop">${Object.entries(GARMENTS).map(([id, g]) => productCard(id, g)).join("")}</div>
+  </main>`;
+}
+
+function viewTrainer() {
+  const ids = Object.keys(S.makers);
+  const sel = S.trainerSel && S.makers[S.trainerSel] ? S.trainerSel : ids[0];
+  const m = S.makers[sel];
+  const pending = m.badges.map((b, i) => ({ b, i })).filter(x => !x.b.verified);
+  return `<main>
+    ${crumbs(["Trainer area"])}
+    <div class="page-head"><h1 class="h1">Trainer area</h1><p class="lead">For workshop trainers. You create maker profiles and confirm badges, so every skill is checked by a real person.</p></div>
+
+    <div class="split">
+      <div class="col">
+        <section class="section">
+          <p class="label">Choose a maker</p>
+          <div class="seg" role="group" aria-label="Makers">${ids.map(id => `<button type="button" data-act="tsel" data-id="${id}" aria-pressed="${id === sel}">${esc(S.makers[id].name)}</button>`).join("")}</div>
+        </section>
+        <div class="card">
+          <div class="who"><span class="avatar sm" style="background:${m.color}">${esc(m.name[0])}</span><div><b style="font-size:19px">${esc(m.name)}</b><div class="small">${esc(m.workshop)}</div></div></div>
+          <p class="label" style="margin-top:6px">Badges waiting for you</p>
+          ${pending.length ? pending.map(({ b, i }) => `<div class="badge"><span class="seal">${icon("seal")}</span><div><b>${esc(b.name)}</b><small>${esc(b.skill)}</small></div><button class="btn rose sm" style="width:auto" data-act="verify" data-id="${sel}" data-i="${i}">Confirm</button></div>`).join("") : `<p class="small">Nothing to confirm. All of ${esc(m.name)}'s badges are verified.</p>`}
+          <p class="label" style="margin-top:6px">Add a badge</p>
+          <form id="badge-form" class="stack" style="gap:10px">
+            <div class="field"><label for="b-name">What did ${esc(m.name)} learn?</label><input id="b-name" required placeholder="For example: Setting a zip"></div>
+            <div class="field"><label for="b-skill">Skill</label><select id="b-skill">${SKILLS.map(s => `<option>${s}</option>`).join("")}</select></div>
+            <button class="btn sm" type="submit">Add and confirm badge</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="h2">New maker profile</h2>
+        <form id="maker-form">
+          <div class="field"><label for="m-name">First name</label><input id="m-name" required autocomplete="off" placeholder="First name only"><span class="hint">First names only. Never add a surname, prison name or offence.</span><span class="err" id="m-err"></span></div>
+          <div class="field"><label for="m-ws">Workshop</label><select id="m-ws"><option>East London workshop</option><option>South London workshop</option></select></div>
+          <div class="field"><span style="font-weight:600">Skills</span><div class="checks">${SKILLS.slice(0, 7).map((s, i) => `<label><input type="checkbox" name="sk" value="${s}"${i === 0 ? " checked" : ""}>${s}</label>`).join("")}</div></div>
+          <button class="btn rose" type="submit">Create profile</button>
+        </form>
+      </div>
+    </div>
+
+    <section class="section">
+      <h2 class="h2">Garment tags</h2>
+      <p class="small">One QR code per Garment Passport. Print one and attach it to a real garment. It opens that garment's page.</p>
+      <div class="tags grid5">${Object.entries(GARMENTS).map(([id, g]) => `<div class="tag"><div style="width:100%">${qrSVG(garmentURL(id))}</div><b>The Rose</b><small>${id.toUpperCase()} · ${esc(g.name)}</small></div>`).join("")}</div>
+    </section>
+  </main>`;
+}
+
+function viewMaker(id) {
+  const m = S.makers[id]; if (!m) return viewHome();
+  const made = Object.entries(GARMENTS).filter(([, g]) => g.maker === id);
+  const ver = m.badges.filter(b => b.verified);
+  const pend = m.badges.filter(b => !b.verified);
+  const isMe = id === S.me;
+  return `<main>
+    ${crumbs(["Makers"], [m.name])}
+    <div class="split side">
+      <aside class="col sticky">
+        <div class="card">
+          <div class="who"><span class="avatar" style="background:${m.color}">${esc(m.name[0])}</span><div><p class="label">Maker Passport</p><h1 class="h1" style="font-size:40px">${esc(m.name)}</h1><div class="small">${esc(m.workshop)} · since ${esc(m.since)}</div></div></div>
+          <p>${esc(m.about)}</p>
+          ${isMe ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <button class="btn rose sm" data-go="matches">Matches</button>
+            <button class="btn line sm" data-go="lessons">Lessons</button>
+          </div>` : ""}
+        </div>
+        <div class="card">
+          <p class="label">Skills</p>
+          <div class="chips">${m.skills.map(s => `<span class="chip${S.flash === s ? " new" : ""}">${esc(s)}</span>`).join("")}</div>
+        </div>
+        <div class="card">
+          <label class="switch" for="consent"><span><b style="display:block">Show my story on my garments</b><span class="small">Customers see your story when they scan a garment you made. You can turn it off at any time.</span></span><input type="checkbox" id="consent" data-act="consent" data-id="${id}"${m.consent ? " checked" : ""}><span class="track"></span></label>
+        </div>
+      </aside>
+
+      <div class="col">
+        <div class="card">
+          <div class="item-head"><h2 class="h2">Verified badges</h2><span class="status ver">${ver.length}</span></div>
+          <div>${ver.map(b => `<div class="badge${S.flash === b.name ? " fresh" : ""}"><span class="seal">${icon("seal")}</span><div><b>${esc(b.name)}</b><small>Confirmed by ${esc(b.by)} · ${esc(b.date)}</small></div><span class="status ver">Verified</span></div>`).join("")}
+          ${pend.map(b => `<div class="badge"><span class="seal" style="background:var(--warn-soft);color:var(--warn)">${icon("seal")}</span><div><b>${esc(b.name)}</b><small>Waiting for a trainer to confirm</small></div><span class="status pend">Pending</span></div>`).join("")}</div>
+        </div>
+
+        <section class="section">
+          <h2 class="h2">Garments made</h2>
+          ${made.length ? `<div class="shop">${made.map(([gid, g]) => productCard(gid, g)).join("")}</div>` : `<p class="small">No garments yet.</p>`}
+        </section>
+
+        <p class="small">This passport works like a digital CV. Employers can see skills that a trainer has checked.</p>
+
+        <details class="card">
+          <summary style="cursor:pointer;font-weight:700;font-size:17px">Support</summary>
+          <p class="small">If things feel heavy, these services can help. They are free and confidential.</p>
+          ${SUPPORT.map(s => `<div style="display:grid;gap:2px;padding-top:8px;border-top:1px solid var(--rule)"><b>${s.name}</b><span class="small">${s.what}</span><a href="${s.url}" target="_blank" rel="noopener">${s.contact}</a></div>`).join("")}
+        </details>
+        ${isMe ? `<p class="foot-note" style="text-align:left">Not ${esc(m.name)}? ${Object.keys(S.makers).filter(k => k !== id).map(k => `<button class="link" style="font-size:13px" data-act="me" data-id="${k}">${esc(S.makers[k].name)}</button>`).join(" · ")}</p>` : ""}
+      </div>
+    </div>
+  </main>`;
+}
+
+function viewMatches() {
+  const m = S.makers[S.me];
+  const mentors = MENTORS.map(x => ({ ...x, sh: shared(x.skills, m.skills) })).filter(x => x.sh.length);
+  const jobs = JOBS.map(x => ({ ...x, sh: shared(x.skills, m.skills) })).filter(x => x.sh.length);
+  return `<main>
+    ${crumbs([m.name, `maker-${S.me}`], ["Matches"])}
+    <div class="page-head"><h1 class="h1">Matches for ${esc(m.name)}</h1><p class="lead">Mentors and jobs that share at least one skill with you.</p></div>
+    <div class="split">
+      <section class="col">
+        <p class="label">Mentors · ${mentors.length}</p>
+        ${mentors.map(x => `<div class="card item">
+          <div class="who"><span class="avatar sm" style="background:${x.color}">${x.name[0]}</span><div><b style="font-size:18px">${x.name}</b><div class="small">${x.role}</div></div></div>
+          <div class="chips">${x.sh.map(s => `<span class="chip match">${esc(s)}</span>`).join("")}</div>
+          ${S.booked[x.id] ? `<button class="btn ok" disabled>${icon("check")} Booked · ${x.slot}</button>` : `<button class="btn rose" data-act="book" data-id="${x.id}">Book mentor · ${x.slot}</button>`}
+        </div>`).join("") || `<p class="small">No mentor matches yet. Finish a lesson to add new skills.</p>`}
+      </section>
+      <section class="col">
+        <p class="label">Jobs · ${jobs.length}</p>
+        ${jobs.map(x => `<div class="card item">
+          <div><b style="font-size:18px;display:block">${x.title}</b><div class="small">${x.org}</div><div class="small">${x.pay}</div></div>
+          <div class="chips">${x.sh.map(s => `<span class="chip match">${esc(s)}</span>`).join("")}</div>
+          ${S.contacted[x.id] ? `<button class="btn ok" disabled>${icon("check")} Contact requested</button>` : `<button class="btn line" data-act="contact" data-id="${x.id}">Ask for contact</button>`}
+        </div>`).join("") || `<p class="small">No job matches yet.</p>`}
+      </section>
+    </div>
+  </main>`;
+}
+
+function viewLessons(lid) {
+  const m = S.makers[S.me];
+  if (lid) {
+    const l = LESSONS.find(x => x.id === lid); if (!l) return viewLessons();
+    const done = S.lessons[l.id];
+    return `<main>
+      ${crumbs([m.name, `maker-${S.me}`], ["Lessons", "lessons"], [l.title])}
+      <div class="page-head"><p class="label">Money lesson · ${l.mins} min</p><h1 class="h1">${l.title}</h1></div>
+      <div class="split">
+        <div class="card">${l.points.map((p, i) => `<div class="lesson-pt"><i>${i + 1}</i><p>${p}</p></div>`).join("")}</div>
+        <div class="col">
+          <div class="card">
+            <p class="label">Quick check</p>
+            <b style="font-size:19px">${l.q}</b>
+            <div class="opts" id="opts">${l.options.map((o, i) => `<button type="button" data-act="answer" data-l="${l.id}" data-i="${i}"${done && i === l.answer ? ' class="right"' : ""}>${o}</button>`).join("")}</div>
+            <p class="err" id="ans-msg" aria-live="polite"></p>
+          </div>
+          ${done ? `<button class="btn ok" disabled>${icon("check")} Done · badge earned</button>` : ""}
+        </div>
+      </div>
+    </main>`;
+  }
+  return `<main>
+    ${crumbs([m.name, `maker-${S.me}`], ["Lessons"])}
+    <div class="page-head"><h1 class="h1">Money lessons</h1><p class="lead">Short lessons on handling your money. Each one you finish adds a verified badge to your passport.</p></div>
+    <div class="grid3">${LESSONS.map(l => `<button class="card" style="text-align:left;cursor:pointer;align-content:start" data-go="lesson-${l.id}">
+      <span style="display:flex;justify-content:space-between;align-items:center"><span style="width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--rose-soft);color:var(--rose)">${icon("book")}</span>${S.lessons[l.id] ? `<span class="status ver">Done</span>` : `<span class="status pend">Start</span>`}</span>
+      <b style="display:block;font-size:19px">${l.title}</b><span class="small">${l.mins} min · Badge: ${l.badge}</span>
+    </button>`).join("")}</div>
+  </main>`;
+}
+
+function viewGarment(id) {
+  const g = GARMENTS[id]; if (!g) return viewHome();
+  const m = S.makers[g.maker];
+  const url = garmentURL(id);
+  return `<main>
+    ${crumbs(["Collection", "garments"], [g.name])}
+    <div class="split wide">
+      <div class="pic sticky" style="aspect-ratio:3/4;border-radius:16px;overflow:hidden">${picHTML(g, g.name)}</div>
+      <div class="col">
+        <div class="stack" style="gap:6px"><p class="label">Garment Passport · ${id.toUpperCase()} · Made in London</p><h1 class="h1">${esc(g.name)}</h1><p style="font-family:var(--mono);font-size:20px">£${g.price}</p></div>
+
+        ${S.reserved[id] ? `<button class="btn ok" disabled>${icon("check")} Reserved for you</button>` : `<button class="btn rose" data-act="buy" data-id="${id}">Buy or reserve this garment</button>`}
+
+        <div class="card">
+          <div class="facts kpi-row">
+            <div><span>Waste saved</span><b>${fmt(g.kg)} kg</b></div>
+            <div><span>Made on</span><b style="font-family:var(--body);font-size:18px">${g.date}</b></div>
+          </div>
+          <div class="facts" style="border-top:0">
+            <div><span>Materials</span><b>${esc(g.materials)}</b></div>
+            <div><span>Fabric from</span><b>${esc(g.source)}</b></div>
+            <div style="grid-column:1/-1;padding-right:0;border-left:0"><span>Where it came from</span><b>${esc(g.note)} · lot ${g.lot}</b></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <p class="label">Made by</p>
+          <div class="who"><span class="avatar sm" style="background:${m.color}">${esc(m.name[0])}</span><div><b style="font-size:19px">${esc(m.name)}</b><div class="small">Maker at The Rose</div></div></div>
+          <div class="chips">${g.skills.map(s => `<span class="chip">${esc(s)}</span>`).join("")}</div>
+          ${m.consent ? `<p class="story">“${esc(m.story)}”</p><p class="small">Shared by ${esc(m.name)}, with their consent.</p>`
+            : `<div class="private">${icon("lock")}<span>${esc(m.name)} has chosen to keep their story private.</span></div>`}
+        </div>
+
+        <div class="card">
+          <p class="label">This garment's tag</p>
+          <div class="qrwrap"><div class="qrbox">${qrSVG(url)}</div><div class="stack" style="gap:6px"><p class="small">Every Rose garment has this QR code sewn inside. Scanning it opens this page.</p><span class="url">${esc(url)}</span></div></div>
+        </div>
+      </div>
+    </div>
+  </main>`;
+}
+
+function viewDonate() {
+  return `<main>
+    ${crumbs(["For brands"])}
+    <div class="split">
+      <div class="col">
+        <div class="page-head"><p class="label">For brands</p><h1 class="h1">Donate fabric</h1><p class="lead">Tell us what you have and we collect it. You'll see every garment made from it.</p></div>
+        <div class="card steps" style="gap:0">
+          <div class="rows">
+            <div><span><b>1. Tell us what you have</b><br><span class="small">Fabric type, kg and where to pick it up.</span></span></div>
+            <div><span><b>2. We collect it</b><br><span class="small">Our team picks it up from your warehouse or a drop-off point.</span></span></div>
+            <div><span><b>3. Makers turn it into clothes</b><br><span class="small">Each garment's passport names your brand as the source.</span></span></div>
+            <div><span><b>4. You see the impact</b><br><span class="small">Your kg show up on the impact dashboard straight away.</span></span></div>
+          </div>
+        </div>
+      </div>
+      <form id="donate-form" class="card" novalidate>
+        <h2 class="h2">Your donation</h2>
+        <div class="field"><label for="d-brand">Brand name</label><input id="d-brand" list="brand-list" required autocomplete="organization" placeholder="Your brand"><datalist id="brand-list">${BRANDS.map(b => `<option value="${b}">`).join("")}</datalist></div>
+        <div class="field"><label for="d-type">Type of fabric</label><select id="d-type"><option>Cotton jersey</option><option>Denim</option><option>Wool</option><option>Polyester blend</option><option>Silk blend</option><option>Mixed offcuts</option></select></div>
+        <div class="field"><label for="d-kg">How many kg?</label><input id="d-kg" type="number" inputmode="decimal" min="1" max="100000" step="0.5" required placeholder="For example: 40"></div>
+        <div class="field"><label for="d-pick">Pickup point</label><select id="d-pick"><option>Brand warehouse (we collect)</option><option>Hackney workshop</option><option>Peckham workshop</option><option>Drop-off at a London store</option></select></div>
+        <p class="err" id="d-err" aria-live="polite"></p>
+        <button class="btn rose" type="submit">Send donation</button>
+      </form>
+    </div>
+  </main>`;
+}
+
+function viewDashboard() {
+  const k = impact();
+  const flash = S.flash;
+  const byBrand = {};
+  S.donations.forEach(d => byBrand[d.brand] = (byBrand[d.brand] || 0) + d.kg);
+  return `<main>
+    ${crumbs(["Impact"])}
+    <div class="page-head"><h1 class="h1">Our impact</h1><p class="lead">Live totals across The Rose platform.</p></div>
+    <div class="kpis grid3">
+      <div class="kpi${flash === "kg" ? " bump" : ""}"><b>${fmt(k.kg)}<small>kg</small></b><span>Fabric reused</span><em>${k.addKg ? `+${fmt(k.addKg)} kg donated today` : ""}</em></div>
+      <div class="kpi${flash === "trained" ? " bump" : ""}"><b>${fmt(k.trained)}</b><span>People trained</span><em>${k.addTrained ? `+${k.addTrained} new today` : ""}</em></div>
+      <div class="kpi${flash === "hours" ? " bump" : ""}"><b>${fmt(k.hours)}</b><span>Hours of mentoring</span><em>${k.addHours ? `+${k.addHours} booked today` : ""}</em></div>
+    </div>
+    <div class="split">
+      <div class="card">
+        <p class="label">Latest donations</p>
+        <div class="rows">${S.donations.slice().reverse().slice(0, 5).map(d => `<div><span><b>${esc(d.brand)}</b> · ${esc(d.type)}<br><span class="small">${esc(d.date)} · ${esc(d.pickup)}</span></span><span class="num">${fmt(d.kg)} kg</span></div>`).join("")}</div>
+      </div>
+      <div class="card">
+        <p class="label">Where brand fabric went</p>
+        <div class="rows">${Object.entries(byBrand).map(([b, kg]) => { const n = Object.values(GARMENTS).filter(g => g.source === b).length; return `<div><span><b>${esc(b)}</b><br><span class="small">${n ? `${n} garment${n > 1 ? "s" : ""} made so far` : "Waiting to be cut"}</span></span><span class="num">${fmt(kg)} kg</span></div>`; }).join("")}</div>
+      </div>
+    </div>
+    <button class="link" data-act="reset" style="justify-self:start;font-size:14px">Reset the demo</button>
+  </main>`;
+}
+
+/* ============================================================
+   ROUTER
+   ============================================================ */
+const NAV_FOR = { home: "home", maker: "maker", matches: "maker", lessons: "maker", lesson: "maker", garments: "garments", garment: "garments", donate: "donate", dashboard: "dashboard", trainer: "trainer" };
+function header(cur) {
+  const link = (key, href, label) => `<a href="#${href}"${cur === key ? ' aria-current="page"' : ""}>${label}</a>`;
+  return `<div class="wrap">
+    <nav class="site-nav" aria-label="Main">${link("garments", "garments", "Collection")}${link("maker", `maker-${S.me}`, "Makers")}</nav>
+    <a class="brandmark" href="#home">${icon("rose")}The Rose</a>
+    <nav class="site-nav right" aria-label="More">${link("donate", "donate", "For brands")}${link("dashboard", "dashboard", "Impact")}</nav>
+    <button class="menu-btn" data-act="menu" aria-expanded="false" aria-label="Open menu">${icon("menu")}</button>
+  </div>
+  <nav class="mobile-nav" aria-label="Menu">
+    ${link("home", "home", "Home")}${link("garments", "garments", "Collection")}${link("maker", `maker-${S.me}`, "Makers")}${link("donate", "donate", "For brands")}${link("dashboard", "dashboard", "Impact")}
+    <button class="m-small" data-act="scan">Scan a garment</button>
+    <a class="m-small" href="#trainer">Trainer area</a>
+  </nav>`;
+}
+function footer() {
+  return `<div class="wrap">
+    <a class="brandmark" href="#home">${icon("rose")}The Rose</a>
+    <p class="tagline">Fashion waste, remade by hand in London by people building a fresh start.</p>
+    <ul><li><a href="#garments">Collection</a></li><li><a href="#maker-${S.me}">Makers</a></li><li><a href="#donate">For brands</a></li><li><a href="#dashboard">Impact</a></li><li><a href="#trainer">Trainer area</a></li></ul>
+    <ul>${SUPPORT.map(s => `<li><a href="${s.url}" target="_blank" rel="noopener">${s.name}</a></li>`).join("")}</ul>
+    <p class="fine">Sample data. All people, brands and numbers on this site are examples for a demo.</p>
+  </div>`;
+}
+
+/* Headline words rise in one by one; labels and intro text fade up after them */
+function animateText() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const h = document.querySelector("main .h1");
+  if (h) {
+    h.setAttribute("aria-label", h.textContent.trim());
+    let i = 0;
+    const walk = node => [...node.childNodes].forEach(n => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.append(part); return; }
+          const w = document.createElement("span"), inner = document.createElement("span");
+          w.className = "w"; w.setAttribute("aria-hidden", "true");
+          inner.style.setProperty("--i", i++); inner.textContent = part;
+          w.append(inner); frag.append(w);
+        });
+        n.replaceWith(frag);
+      } else if (n.nodeType === 1) walk(n);
+    });
+    walk(h);
+  }
+  [[".crumbs", 0], [".hero .label, .page-head .label", 0], [".hero .lead, .page-head .lead", 450]].forEach(([sel, d]) =>
+    document.querySelectorAll(sel).forEach(el => { el.classList.add("fade-up"); el.style.setProperty("--d", d + "ms"); }));
+}
+
+/* Impact numbers count up from zero the first time they are seen */
+function countUp(el) {
+  const t = [...el.childNodes].find(n => n.nodeType === 3 && /\d/.test(n.textContent));
+  if (!t) return;
+  const target = parseFloat(t.textContent.replace(/,/g, ""));
+  if (!(target > 0) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const start = performance.now(), dur = 1400;
+  const step = now => {
+    const p = Math.min(1, (now - start) / dur), e = 1 - Math.pow(1 - p, 3);
+    t.textContent = fmt(Math.round(target * e));
+    if (p < 1) requestAnimationFrame(step); else t.textContent = fmt(target);
+  };
+  requestAnimationFrame(step);
+}
+
+/* Gentle fade-in as sections scroll into view */
+let revealer = null;
+function reveal() {
+  const els = document.querySelectorAll(".rv");
+  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) { els.forEach(el => el.classList.add("in")); return; }
+  if (revealer) revealer.disconnect();
+  revealer = new IntersectionObserver(entries => entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    en.target.classList.add("in");
+    if (en.target.matches(".ticker")) en.target.querySelectorAll("b").forEach(countUp);
+    revealer.unobserve(en.target);
+  }), { rootMargin: "0px 0px -8% 0px" });
+  els.forEach(el => revealer.observe(el));
+  document.querySelectorAll(".kpis .kpi b").forEach(countUp);
+}
+
+function route() {
+  const h = (location.hash || "#home").slice(1);
+  const [name, ...rest] = h.split("-");
+  const arg = rest.join("-");
+  let html;
+  switch (name) {
+    case "trainer": html = viewTrainer(); break;
+    case "maker": html = viewMaker(arg || S.me); break;
+    case "matches": html = viewMatches(); break;
+    case "lessons": html = viewLessons(); break;
+    case "lesson": html = viewLessons(arg); break;
+    case "garments": html = viewGarments(); break;
+    case "garment": html = viewGarment(arg); break;
+    case "donate": html = viewDonate(); break;
+    case "dashboard": html = viewDashboard(); break;
+    default: html = viewHome();
+  }
+  $("app").innerHTML = html;
+  animateText();
+  reveal();
+  $("head").innerHTML = header(NAV_FOR[name] || "home");
+  setMenu(false);
+  $("foot").innerHTML = footer();
+  if (S.flash) { S.flash = null; save(); }
+  window.scrollTo(0, 0);
+}
+function setMenu(open) {
+  $("head").classList.toggle("open", open);
+  document.body.classList.toggle("menu-open", open);
+  const b = $("head").querySelector(".menu-btn");
+  if (b) { b.setAttribute("aria-expanded", open); b.setAttribute("aria-label", open ? "Close menu" : "Open menu"); b.innerHTML = icon(open ? "close" : "menu"); }
+}
+function go(h) { if (location.hash === "#" + h) route(); else location.hash = h; }
+window.addEventListener("hashchange", route);
+
+/* ============================================================
+   SHEETS (confirmation messages)
+   ============================================================ */
+function sheet(title, body, btn = "Done", next = "") {
+  $("sheet-root").innerHTML = `<div class="sheet-bg" data-act="close-sheet"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t">
+    <span class="done-ico">${icon("check")}</span><h2 class="h2" id="sh-t">${title}</h2><p>${body}</p>
+    <button class="btn rose" data-act="close-sheet" data-next="${next}">${btn}</button>
+    ${next ? `<button class="btn line" data-act="close-sheet">Stay here</button>` : ""}
+  </div></div>`;
+  $("sheet-root").querySelector(".btn").focus();
+}
+function scanSheet() {
+  $("sheet-root").innerHTML = `<div class="sheet-bg" data-act="close-sheet"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t">
+    <span class="done-ico" style="background:var(--rose-soft);color:var(--rose)">${icon("scan")}</span>
+    <h2 class="h2" id="sh-t">Scan a garment</h2>
+    <p>Open your phone camera and point it at the QR code on the garment's tag. The Garment Passport opens by itself.</p>
+    <p class="label" style="margin-top:4px">No tag nearby? Pick a garment</p>
+    <div class="stack" style="gap:8px">${Object.entries(GARMENTS).map(([id, g]) => `<button class="btn line sm" style="justify-content:space-between" data-act="close-sheet" data-next="garment-${id}"><span>${esc(g.name)}</span><span class="small" style="font-family:var(--mono)">${id.toUpperCase()}</span></button>`).join("")}</div>
+    <button class="btn" data-act="close-sheet">Close</button>
+  </div></div>`;
+}
+
+/* ============================================================
+   ACTIONS
+   ============================================================ */
+document.addEventListener("click", e => {
+  if (e.target.closest(".site-nav, .mobile-nav")) setMenu(false);
+  const g = e.target.closest("[data-go]");
+  if (g) { go(g.dataset.go); return; }
+  const a = e.target.closest("[data-act]"); if (!a) return;
+  const act = a.dataset.act, id = a.dataset.id;
+  if (act === "close-sheet") {
+    if (a.classList.contains("sheet-bg") && e.target !== a) return;
+    $("sheet-root").innerHTML = "";
+    if (a.dataset.next) go(a.dataset.next);
+    return;
+  }
+  if (act === "back") { if (history.length > 1) history.back(); else go("home"); }
+  if (act === "scan") scanSheet();
+  if (act === "menu") setMenu(!$("head").classList.contains("open"));
+  if (act === "tsel") { S.trainerSel = id; save(); route(); }
+  if (act === "verify") {
+    const b = S.makers[id].badges[+a.dataset.i];
+    b.verified = true; b.by = TRAINER; b.date = today();
+    if (!S.makers[id].skills.includes(b.skill)) S.makers[id].skills.push(b.skill);
+    save(); route();
+    sheet("Badge verified", `“${esc(b.name)}” is now verified on ${esc(S.makers[id].name)}'s Maker Passport.`, "See passport", `maker-${id}`);
+  }
+  if (act === "me") { S.me = id; save(); go(`maker-${id}`); }
+  if (act === "book") {
+    const x = MENTORS.find(m => m.id === id);
+    S.booked[id] = true; S.flash = "hours"; save(); route();
+    sheet(`Booked with ${x.name}`, `Your first session is on ${x.slot}. ${x.name} will meet you at your workshop. One mentoring hour has been added to the impact dashboard.`);
+  }
+  if (act === "contact") {
+    const x = JOBS.find(j => j.id === id);
+    S.contacted[id] = true; save(); route();
+    sheet("Request sent", `We sent ${esc(S.makers[S.me].name)}'s Maker Passport to the ${x.org.split(",")[0].toLowerCase()} for the ${x.title.toLowerCase()} role. They will reply through your trainer.`);
+  }
+  if (act === "answer") {
+    const l = LESSONS.find(x => x.id === a.dataset.l), i = +a.dataset.i;
+    if (S.lessons[l.id]) return;
+    if (i !== l.answer) { a.classList.add("wrong"); $("ans-msg").textContent = "Not quite. Read the three points again and try once more."; return; }
+    a.classList.add("right");
+    const m = S.makers[S.me];
+    S.lessons[l.id] = true;
+    m.badges.push({ name: l.badge, skill: "Money basics", verified: true, by: "Lesson quiz", date: today() });
+    const newSkill = !m.skills.includes("Money basics");
+    if (newSkill) m.skills.push("Money basics");
+    S.flash = l.badge; save();
+    setTimeout(() => sheet("New badge earned", `<b>${esc(l.badge)}</b> is now on your Maker Passport.${newSkill ? " You also gained the skill <b>Money basics</b>, which gives you a new mentor match." : ""}`, "See my passport", `maker-${S.me}`), 350);
+  }
+  if (act === "buy") {
+    S.reserved[id] = true; save(); route();
+    sheet("Reserved for you", `${esc(GARMENTS[id].name)} is held for 48 hours. We'll send payment and delivery details by email. Your purchase pays ${esc(S.makers[GARMENTS[id].maker].name)}'s wage at the workshop.`, "Donate fabric next", "donate");
+  }
+  if (act === "reset") { S = fresh(); save(); route(); sheet("Demo reset", "Everything is back to the starting sample data."); }
+});
+
+document.addEventListener("change", e => {
+  if (e.target.dataset.act === "consent") {
+    const m = S.makers[e.target.dataset.id];
+    m.consent = e.target.checked; save();
+  }
+});
+
+document.addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.target;
+  if (f.id === "donate-form") {
+    const brand = $("d-brand").value.trim(), kg = parseFloat($("d-kg").value);
+    if (!brand) { $("d-err").textContent = "Please add your brand name."; $("d-brand").focus(); return; }
+    if (!(kg > 0)) { $("d-err").textContent = "Please add how many kg you're donating, for example 40."; $("d-kg").focus(); return; }
+    const d = { brand, type: $("d-type").value, kg, pickup: $("d-pick").value, date: today() };
+    S.donations.push(d); S.flash = "kg"; save();
+    sheet(`Thank you, ${esc(brand)}`, `${fmt(kg)} kg of ${esc(d.type.toLowerCase())} is booked for pickup at: ${esc(d.pickup)}. We added it to the impact dashboard.`, "See impact dashboard", "dashboard");
+  }
+  if (f.id === "maker-form") {
+    const name = $("m-name").value.trim();
+    if (!/^[A-Za-z\u00C0-\u00FF'-]{2,20}$/.test(name)) { $("m-err").textContent = name.includes(" ") ? "Please use a first name only, with no surname." : "Please enter a first name of 2 to 20 letters."; return; }
+    const skills = [...f.querySelectorAll('input[name="sk"]:checked')].map(x => x.value);
+    if (!skills.length) { $("m-err").textContent = "Choose at least one skill."; return; }
+    const id = name.toLowerCase().replace(/[^a-z]/g, "") + Date.now().toString(36).slice(-3);
+    const colors = ["#7A4E9E", "#2F6A8F", "#8F6A2F", "#2F8F6A", "#9E2348"];
+    S.makers[id] = { name: name[0].toUpperCase() + name.slice(1), color: colors[S.newMakers % colors.length], since: new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" }), workshop: $("m-ws").value,
+      about: "New maker at The Rose.", skills, badges: [], consent: false, story: "" };
+    S.newMakers++; S.trainerSel = id; save(); route();
+    sheet("Profile created", `${esc(S.makers[id].name)}'s Maker Passport is ready. Their story stays private until they choose to share it.`, "Open passport", `maker-${id}`);
+  }
+  if (f.id === "badge-form") {
+    const sel = S.trainerSel && S.makers[S.trainerSel] ? S.trainerSel : Object.keys(S.makers)[0];
+    const name = $("b-name").value.trim(); if (!name) return;
+    const skill = $("b-skill").value, m = S.makers[sel];
+    m.badges.push({ name, skill, verified: true, by: TRAINER, date: today() });
+    if (!m.skills.includes(skill)) m.skills.push(skill);
+    save(); route();
+    sheet("Badge added", `“${esc(name)}” is verified on ${esc(m.name)}'s passport.`);
+  }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && $("sheet-root").innerHTML) $("sheet-root").innerHTML = ""; });
+
+route();
+</script>
